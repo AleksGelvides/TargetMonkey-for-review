@@ -5,10 +5,7 @@ import entitiesDto.AdCustomerRegistrationDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class AdCustomerController {
     }
 
     @PostMapping("save")
-    public String saveAdCustomer(AdCustomerRegistrationDTO adCustomerRegistrationDTO){
+    public String saveAdCustomer(@RequestBody AdCustomerRegistrationDTO adCustomerRegistrationDTO){
         adCustomerRegistrationService.saveAdCustomer(adCustomerRegistrationDTO);
         return "Success-adding-user";
     }
