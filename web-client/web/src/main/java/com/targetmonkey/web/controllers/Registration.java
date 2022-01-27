@@ -1,6 +1,6 @@
 package com.targetmonkey.web.controllers;
 
-import entities.AdCustomer;
+import entitiesDto.AdCustomerRegistrationDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,12 @@ public class Registration {
 
     @GetMapping("")
     public String goLanding(Model model){
-        model.addAttribute("newAdCustomer", new AdCustomer());
+        model.addAttribute("newAdCustomer", new AdCustomerRegistrationDTO());
         return "landings/first-landing/index";
     }
 
     @PostMapping("")
-    public String successRegistration(@RequestBody AdCustomer adCustomer){
+    public String successRegistration(@RequestBody AdCustomerRegistrationDTO AdCustomerRegistrationDTO){
         return "landings/first-landing/success/success";
     }
 }
