@@ -1,6 +1,6 @@
 package interfaces;
 
-import entitiesDto.AdCustomerRegistrationDTO;
+import entities.AdCustomerRegistrationDTO;
 
 import java.util.List;
 

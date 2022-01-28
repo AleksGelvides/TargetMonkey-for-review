@@ -1,10 +1,10 @@
-package com.targetmonkey.web;
+package com.targetmonkey.eurekaserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebApplicationTests {
+class EurekaServerApplicationTests {
 
     @Test
     void contextLoads() {
