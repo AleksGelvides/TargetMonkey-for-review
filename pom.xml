@@ -7,12 +7,13 @@
     <groupId>com.targetmonkey</groupId>
     <artifactId>TargetMonkey-for-review</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <modules>
-        <module>web-client</module>
         <module>data-access-service</module>
         <module>targetmonkey-dto</module>
+        <module>eureka-server</module>
     </modules>
-    <packaging>pom</packaging>
 
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -24,5 +25,15 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-parent</artifactId>
+                <version>Greenwich.RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

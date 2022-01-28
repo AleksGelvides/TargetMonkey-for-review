@@ -1,4 +1,4 @@
-package entitiesDto;
+package entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
