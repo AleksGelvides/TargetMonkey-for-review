@@ -1,0 +1,18 @@
+zuul:
+  routes:
+    ad-customer-rest-service:
+      path: /ad-customer/**
+      url: data-rest-service/ad-customer.v1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+
+spring:
+  application:
+    name: apigateway-service
+server:
+  port: 8089

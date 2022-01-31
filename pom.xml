@@ -12,13 +12,15 @@
     <modules>
         <module>data-access-service</module>
         <module>targetmonkey-dto</module>
-        <module>eureka-server</module>
+        <module>web-client</module>
+        <module>platform-services</module>
     </modules>
 
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
         <version>2.6.3</version>
+        <relativePath/>
     </parent>
 
     <properties>
