@@ -12,8 +12,8 @@
     <modules>
         <module>data-access-service</module>
         <module>targetmonkey-dto</module>
-        <module>eureka-server</module>
         <module>web-client</module>
+        <module>platform-services</module>
     </modules>
 
     <parent>
