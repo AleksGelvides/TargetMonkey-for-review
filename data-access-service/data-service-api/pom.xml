@@ -6,19 +6,12 @@
         <artifactId>data-access-service</artifactId>
         <groupId>com.targetmonkey</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
+
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>data-service-api</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.targetmonkey</groupId>
-            <artifactId>targetmonkey-dto</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

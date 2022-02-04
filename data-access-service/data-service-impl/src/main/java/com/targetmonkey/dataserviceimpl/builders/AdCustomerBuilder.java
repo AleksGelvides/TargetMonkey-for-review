@@ -1,7 +1,7 @@
 package com.targetmonkey.dataserviceimpl.builders;
 
-import com.targetmonkey.dataservicedb.entities.AdCustomerRegistrationJpa;
-import entities.AdCustomerRegistrationDTO;
+import com.targetmonkey.dataserviceimpl.jparepositories.entities.AdCustomerRegistrationJpa;
+import dtos.AdCustomerRegistrationDTO;
 import org.springframework.stereotype.Component;
 
 @Component
