@@ -1,6 +1,6 @@
 package services;
 
-import dtos.AdCustomerRegistrationDTO;
+import dtoentities.AdCustomerRegistrationDTO;
 
 import java.util.List;
 

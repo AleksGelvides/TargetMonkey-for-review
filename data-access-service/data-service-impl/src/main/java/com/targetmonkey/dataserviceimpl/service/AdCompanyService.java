@@ -2,7 +2,7 @@ package com.targetmonkey.dataserviceimpl.service;
 
 import com.targetmonkey.dataserviceimpl.builders.AdCompanyBuilder;
 import com.targetmonkey.dataserviceimpl.jparepositories.interfaces.AdCompanyRegJpa;
-import dtos.AdCompanyRegistrationDTO;
+import dtoentities.AdCompanyRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import services.ApiRegistrationCompany;

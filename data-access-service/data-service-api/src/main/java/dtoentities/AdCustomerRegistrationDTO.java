@@ -1,4 +1,4 @@
-package dtos;
+package dtoentities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

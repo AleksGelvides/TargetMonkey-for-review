@@ -2,17 +2,15 @@ package com.targetmonkey.dataserviceimpl.service;
 
 import com.targetmonkey.dataserviceimpl.jparepositories.interfaces.AdCustomerRegJpa;
 import com.targetmonkey.dataserviceimpl.builders.AdCustomerBuilder;
-import dtos.AdCustomerRegistrationDTO;
+import dtoentities.AdCustomerRegistrationDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import services.ApiRegistrationAdCustomer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@ComponentScan("com.targetmonkey.dataservicedb")
 @Service
 public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer {
     @Autowired
