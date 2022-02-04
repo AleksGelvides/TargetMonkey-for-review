@@ -1,6 +1,6 @@
 package services;
 
-import dtos.AdCompanyRegistrationDTO;
+import dtoentities.AdCompanyRegistrationDTO;
 
 import java.util.List;
 

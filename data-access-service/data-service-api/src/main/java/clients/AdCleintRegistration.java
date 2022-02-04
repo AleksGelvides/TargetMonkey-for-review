@@ -1,6 +1,6 @@
 package clients;
 
-import dtos.AdCustomerRegistrationDTO;
+import dtoentities.AdCustomerRegistrationDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
