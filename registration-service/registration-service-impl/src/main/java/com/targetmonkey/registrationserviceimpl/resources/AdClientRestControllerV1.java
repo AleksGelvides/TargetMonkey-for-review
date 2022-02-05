@@ -1,13 +1,16 @@
 package com.targetmonkey.registrationserviceimpl.resources;
 
-import com.targetmonkey.registrationserviceapi.v1.AdCleintRegistrationV1;
+import com.targetmonkey.registrationserviceapi.resource.v1.AdCleintRegistrationV1;
 import com.targetmonkey.registrationserviceimpl.service.AdCustomerRegistrationService;
 import com.targetmonkey.registrationserviceapi.dto.AdCustomerRegistrationDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @Slf4j
+@RestController
 public class AdClientRestControllerV1 implements AdCleintRegistrationV1 {
     @Autowired
     private AdCustomerRegistrationService service;
