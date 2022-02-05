@@ -4,6 +4,7 @@ import com.targetmonkey.registrationserviceimpl.repository.interfaces.AdCustomer
 import com.targetmonkey.registrationserviceimpl.builders.AdCustomerBuilder;
 import com.targetmonkey.registrationserviceapi.dto.AdCustomerRegistrationDTO;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.targetmonkey.registrationserviceimpl.serviceapi.ApiRegistrationAdCustomer;
@@ -11,6 +12,7 @@ import com.targetmonkey.registrationserviceimpl.serviceapi.ApiRegistrationAdCust
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 @Service
 public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer {
     @Autowired
@@ -21,6 +23,7 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
 
     @Override
     public void saveAdCustomer(AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
+
         adCustomerRegRepository.save(adCustomerBuilder.
                 dtoToJpa(adCustomerRegistrationDTO));
     }

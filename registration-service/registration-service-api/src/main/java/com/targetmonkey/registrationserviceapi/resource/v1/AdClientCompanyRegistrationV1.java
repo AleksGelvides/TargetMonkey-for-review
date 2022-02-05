@@ -1,4 +1,4 @@
-package com.targetmonkey.registrationserviceapi.v1;
+package com.targetmonkey.registrationserviceapi.resource.v1;
 
 
 import com.targetmonkey.registrationserviceapi.dto.AdCompanyRegistrationDTO;
