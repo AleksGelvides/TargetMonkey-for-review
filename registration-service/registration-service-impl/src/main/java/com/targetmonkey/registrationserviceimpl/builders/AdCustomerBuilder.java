@@ -13,6 +13,7 @@ public class AdCustomerBuilder {
     public AdCustomerRegistrationJpa dtoToJpa
             (AdCustomerRegistrationDTO dto){
         var jpa = new AdCustomerRegistrationJpa()
+                .setId(dto.getId())
                 .setName(dto.getName())
                 .setMail(dto.getMail())
                 .setPhone(dto.getPhone())
