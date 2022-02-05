@@ -4,7 +4,7 @@ import com.targetmonkey.registrationserviceimpl.repository.interfaces.AdCustomer
 import com.targetmonkey.registrationserviceimpl.builders.AdCustomerBuilder;
 import com.targetmonkey.registrationserviceapi.dto.AdCustomerRegistrationDTO;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.targetmonkey.registrationserviceimpl.serviceapi.ApiRegistrationAdCustomer;
@@ -12,7 +12,7 @@ import com.targetmonkey.registrationserviceimpl.serviceapi.ApiRegistrationAdCust
 import java.util.ArrayList;
 import java.util.List;
 
-@Log4j
+@Slf4j
 @Service
 public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer {
     @Autowired
@@ -23,9 +23,9 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
 
     @Override
     public void saveAdCustomer(AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
-
         adCustomerRegRepository.save(adCustomerBuilder.
                 dtoToJpa(adCustomerRegistrationDTO));
+        log.info("Пользователь сохранен");
     }
 
     @Override
@@ -35,28 +35,33 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
                 .findAll().stream()
                 .forEach(jpa ->
                         adCustomerRegistrationDTOS.add(adCustomerBuilder.jpaToDto(jpa)));
+        log.info("Показать всех пользователей. Всего: " + adCustomerRegistrationDTOS.size());
         return adCustomerRegistrationDTOS;
     }
 
     @Override
     public AdCustomerRegistrationDTO getToId(Long id) {
-        return adCustomerBuilder.jpaToDto(adCustomerRegRepository.getById(id));
+        var customer = adCustomerBuilder.jpaToDto(adCustomerRegRepository.getById(id));
+        log.info("Вызов пользователя по ID: " + id + " :: " + customer);
+        return customer;
     }
 
     @Override
     public void editCustomer(long id, AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
         var oldCustomer = adCustomerBuilder.jpaToDto(adCustomerRegRepository.getById(id));
-
+        log.info("Изменение пользователя: " + oldCustomer);
         oldCustomer.setName(adCustomerRegistrationDTO.getName())
                 .setMail(adCustomerRegistrationDTO.getMail())
                 .setPhone(adCustomerRegistrationDTO.getPhone())
                 .setPass(adCustomerRegistrationDTO.getPass());
-
+        log.info("Пользователь обновлен: " + oldCustomer);
         adCustomerRegRepository.save(adCustomerBuilder.dtoToJpa(oldCustomer));
+        log.info("Пользователь сохранен");
     }
 
     @Override
     public void deleteCustomer(long id) {
         adCustomerRegRepository.deleteById(id);
+        log.info("Пользователь ID: " + id + " был удален");
     }
 }

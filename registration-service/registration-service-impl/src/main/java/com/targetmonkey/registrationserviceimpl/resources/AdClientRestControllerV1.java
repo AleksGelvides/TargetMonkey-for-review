@@ -17,6 +17,7 @@ public class AdClientRestControllerV1 implements AdCleintRegistrationV1 {
 
     @Override
     public String saveAdCustomer(AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
+        service.saveAdCustomer(adCustomerRegistrationDTO);
         return "Пользователь сохранен";
     }
 
