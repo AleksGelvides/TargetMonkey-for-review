@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-@Table(name = "company")
+@Table(name = "customers")
 public class AdCustomerRegistrationJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
