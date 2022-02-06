@@ -14,15 +14,15 @@ public interface AdClientCompanyRegistrationV1 {
     String saveAdCompany(@RequestBody AdCompanyRegistrationDTO adCompanyRegistrationDTO);
 
     @GetMapping("company/{id}")
-    AdCompanyRegistrationDTO getToId(@PathVariable long id);
+    AdCompanyRegistrationDTO getToId(@PathVariable int id);
 
     @GetMapping("all")
     List<AdCompanyRegistrationDTO> getAll();
 
     @PutMapping("edit/{id}")
-    String editAdCompany(@PathVariable long id,
+    String editAdCompany(@PathVariable int id,
                           @RequestBody AdCompanyRegistrationDTO adCompanyRegistrationDTO);
 
     @DeleteMapping("delete/{id}")
-    String deleteAdCompany(@PathVariable long id);
+    String deleteAdCompany(@PathVariable int id);
 }

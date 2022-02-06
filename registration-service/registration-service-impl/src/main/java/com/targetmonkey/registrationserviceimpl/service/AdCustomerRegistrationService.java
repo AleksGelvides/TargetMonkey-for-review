@@ -40,14 +40,14 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
     }
 
     @Override
-    public AdCustomerRegistrationDTO getToId(Long id) {
+    public AdCustomerRegistrationDTO getToId(int id) {
         var customer = adCustomerBuilder.jpaToDto(adCustomerRegRepository.getById(id));
         log.info("Вызов пользователя по ID: " + id + " :: " + customer);
         return customer;
     }
 
     @Override
-    public void editCustomer(long id, AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
+    public void editCustomer(int id, AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
         var oldCustomer = adCustomerBuilder.jpaToDto(adCustomerRegRepository.getById(id));
         log.info("Изменение пользователя: " + oldCustomer);
         oldCustomer.setName(adCustomerRegistrationDTO.getName())
@@ -60,7 +60,7 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
     }
 
     @Override
-    public void deleteCustomer(long id) {
+    public void deleteCustomer(int id) {
         adCustomerRegRepository.deleteById(id);
         log.info("Пользователь ID: " + id + " был удален");
     }
