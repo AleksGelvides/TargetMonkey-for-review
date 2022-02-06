@@ -30,8 +30,8 @@ public class AdCustomerRegistrationService implements ApiRegistrationAdCustomer 
         List<AdCustomerRegistrationDTO> adCustomerRegistrationDTOS = new ArrayList<>();
                 adCustomerRegJpa
                 .findAll().stream()
-                .forEach(adCustomerRegistrationJpa ->
-                        adCustomerRegistrationDTOS.add(adCustomerBuilder.jpaToDto(adCustomerRegistrationJpa)));
+                .forEach(jpa ->
+                        adCustomerRegistrationDTOS.add(adCustomerBuilder.jpaToDto(jpa)));
         return adCustomerRegistrationDTOS;
     }
 
