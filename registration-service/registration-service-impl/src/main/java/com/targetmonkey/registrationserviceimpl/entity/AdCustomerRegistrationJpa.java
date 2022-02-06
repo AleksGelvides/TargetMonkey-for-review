@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 public class AdCustomerRegistrationJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "id")
+    private int id;
     private String name;
     private String phone;
     private String mail;

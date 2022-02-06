@@ -36,7 +36,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: owner_id
-                  type: bigint
+                  type: integer
                   constraints:
                     foreignKeyName: customer_article_fk
                     referencedTableName: customers

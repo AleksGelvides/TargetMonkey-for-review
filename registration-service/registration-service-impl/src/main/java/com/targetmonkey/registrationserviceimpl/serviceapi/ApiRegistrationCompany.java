@@ -10,10 +10,10 @@ public interface ApiRegistrationCompany {
 
     List<AdCompanyRegistrationDTO> getAllCompany();
 
-    AdCompanyRegistrationDTO getToId(long id);
+    AdCompanyRegistrationDTO getToId(int id);
 
-    void editCompany(long id, AdCompanyRegistrationDTO adCompanyRegistrationDTO);
+    void editCompany(int id, AdCompanyRegistrationDTO adCompanyRegistrationDTO);
 
-    void deleteCompany(long id);
+    void deleteCompany(int id);
 
 }

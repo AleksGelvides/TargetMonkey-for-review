@@ -14,6 +14,33 @@ services:
     ports:
       - 5433:5432
 
+  db-struct:
+    image: db-struct
+    container_name: db-struct
+    build: ./database-struct
+    volumes:
+      - ../src:/opt/app
+    environment:
+      - SPRING_PROFILES_ACTIVE=stage
+
+  apigateway-service:
+    image: apigateway-service
+    container_name: apigateway-service
+    build: ./apigateway-service
+    volumes:
+      - ../src:/opt/app
+    ports:
+      - 8089:8089
+
+  eureka-service:
+    image: eureka-server
+    container_name: eureka-server
+    build: ./eureka-server
+    volumes:
+      - ../src:/opt/app
+    ports:
+      - 8761:8761
+
   registration-service:
     image: registration-service
     container_name: registration-service

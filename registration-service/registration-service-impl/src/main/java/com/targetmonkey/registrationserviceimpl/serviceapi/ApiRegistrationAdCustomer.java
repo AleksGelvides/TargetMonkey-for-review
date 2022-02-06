@@ -10,10 +10,10 @@ public interface ApiRegistrationAdCustomer {
 
     List<AdCustomerRegistrationDTO> getAllCustomers();
 
-    AdCustomerRegistrationDTO getToId(Long id);
+    AdCustomerRegistrationDTO getToId(int id);
 
-    void editCustomer(long id, AdCustomerRegistrationDTO adCustomerRegistrationDTO);
+    void editCustomer(int id, AdCustomerRegistrationDTO adCustomerRegistrationDTO);
 
-    void deleteCustomer(long id);
+    void deleteCustomer(int id);
 
 }
