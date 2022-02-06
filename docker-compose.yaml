@@ -14,11 +14,13 @@ services:
     ports:
       - 5433:5432
 
-  data-access-service:
-    image: data-access-service
-    container_name: data-access-service
-    build: ./data-access-service
+  registration-service:
+    image: registration-service
+    container_name: registration-service
+    build: ./registration-service
     volumes:
       - ../src:/opt/app
     ports:
       - 8081:8081
+    environment:
+      - SPRING_PROFILES_ACTIVE=stage

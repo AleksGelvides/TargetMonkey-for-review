@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-@Table(name = "ad_customer_registration_jpa")
+@Table(name = "companies")
 public class AdCompanyRegistrationJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
