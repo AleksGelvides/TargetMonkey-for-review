@@ -16,12 +16,12 @@ public interface AdCleintRegistrationV1 {
     List<AdCustomerRegistrationDTO> getAll();
 
     @GetMapping("customer/{id}")
-    AdCustomerRegistrationDTO getToId(@PathVariable long id);
+    AdCustomerRegistrationDTO getToId(@PathVariable int id);
 
     @PutMapping("edit/{id}")
-    String editAdCustomer(@PathVariable long id,
+    String editAdCustomer(@PathVariable int id,
                           @RequestBody AdCustomerRegistrationDTO adCustomerRegistrationDTO);
 
     @DeleteMapping("delete/{id}")
-    String deleteAdCustomer(@PathVariable long id);
+    String deleteAdCustomer(@PathVariable int id);
 }

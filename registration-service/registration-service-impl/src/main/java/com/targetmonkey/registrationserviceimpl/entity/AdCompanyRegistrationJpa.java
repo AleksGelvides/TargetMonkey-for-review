@@ -4,6 +4,7 @@ package com.targetmonkey.registrationserviceimpl.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -15,9 +16,9 @@ import javax.persistence.*;
 public class AdCompanyRegistrationJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private long id;
-    private long ownerId;
+    @Column(name = "id")
+    private int id;
+    private int ownerId;
     private String companyName;
     private String category;
 }

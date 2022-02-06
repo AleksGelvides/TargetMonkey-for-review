@@ -27,18 +27,18 @@ public class AdClientRestControllerV1 implements AdCleintRegistrationV1 {
     }
 
     @Override
-    public AdCustomerRegistrationDTO getToId(long id) {
+    public AdCustomerRegistrationDTO getToId(int id) {
         return service.getToId(id);
     }
 
     @Override
-    public String editAdCustomer(long id, AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
+    public String editAdCustomer(int id, AdCustomerRegistrationDTO adCustomerRegistrationDTO) {
         service.editCustomer(id, adCustomerRegistrationDTO);
         return "Пользователь успешно отредактирован";
     }
 
     @Override
-    public String deleteAdCustomer(long id) {
+    public String deleteAdCustomer(int id) {
         service.deleteCustomer(id);
         return "Пользователь успешно удален";
     }

@@ -38,14 +38,14 @@ public class AdCompanyService implements ApiRegistrationCompany {
     }
 
     @Override
-    public AdCompanyRegistrationDTO getToId(long id) {
+    public AdCompanyRegistrationDTO getToId(int id) {
         var company = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
         log.info("Вызов компании по ID: " + id + " :: " + company);
         return company;
     }
 
     @Override
-    public void editCompany(long id, AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
+    public void editCompany(int id, AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
         var oldCompany = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
         log.info("Изменение компании: " + oldCompany);
         oldCompany.setCompanyName(adCompanyRegistrationDTO.getCompanyName())
@@ -57,7 +57,7 @@ public class AdCompanyService implements ApiRegistrationCompany {
     }
 
     @Override
-    public void deleteCompany(long id) {
+    public void deleteCompany(int id) {
         adCompanyRegRepository.deleteById(id);
         log.info("Компания ID: " + id + " была удалена");
     }

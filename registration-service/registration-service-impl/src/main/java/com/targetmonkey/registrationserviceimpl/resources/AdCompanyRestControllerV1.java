@@ -20,7 +20,7 @@ public class AdCompanyRestControllerV1 implements AdClientCompanyRegistrationV1 
     }
 
     @Override
-    public AdCompanyRegistrationDTO getToId(long id) {
+    public AdCompanyRegistrationDTO getToId(int id) {
         return service.getToId(id);
     }
 
@@ -30,13 +30,13 @@ public class AdCompanyRestControllerV1 implements AdClientCompanyRegistrationV1 
     }
 
     @Override
-    public String editAdCompany(long id, AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
+    public String editAdCompany(int id, AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
         service.editCompany(id, adCompanyRegistrationDTO);
         return "Компания была успешно изменена";
     }
 
     @Override
-    public String deleteAdCompany(long id) {
+    public String deleteAdCompany(int id) {
         service.deleteCompany(id);
         return "Компания была удалена";
     }
