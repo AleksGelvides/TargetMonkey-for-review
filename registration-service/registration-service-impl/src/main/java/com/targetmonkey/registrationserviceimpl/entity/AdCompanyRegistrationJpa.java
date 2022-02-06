@@ -1,0 +1,23 @@
+package com.targetmonkey.registrationserviceimpl.entity;
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@Accessors(chain = true)
+@Entity
+@Table(name = "companies")
+public class AdCompanyRegistrationJpa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private long id;
+    private long ownerId;
+    private String companyName;
+    private String category;
+}
