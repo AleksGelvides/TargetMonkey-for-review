@@ -1,5 +1,8 @@
 package com.targetmonkey.authenticationserviceimpl.resource;
 
+import com.targetmonkey.authenticationserviceimpl.exceptions.AuthenticationError;
+import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerNotFoundException;
+import com.targetmonkey.authenticationserviceimpl.jwt.Authentication;
 import com.targetmonkey.authenticationserviceimpl.jwt.JwtTokenCreate;
 import dto.CustomerAuthDto;
 import liquibase.pro.packaged.S;
@@ -25,14 +28,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth/")
 public class AuthRestClientV1 implements AuthenticationRestClientV1 {
-    private final AuthenticationManager authenticationManagerBean;
     private final JwtTokenCreate tokenCreate;
+    private final Authentication authentication;
 
     @Autowired
-    public AuthRestClientV1(AuthenticationManager authenticationManagerBean,
-                            JwtTokenCreate jwtTokenCreate){
-        this.authenticationManagerBean = authenticationManagerBean;
+    public AuthRestClientV1(JwtTokenCreate jwtTokenCreate,
+                            Authentication authentication){
         this.tokenCreate = jwtTokenCreate;
+        this.authentication = authentication;
     }
 
 
@@ -40,10 +43,11 @@ public class AuthRestClientV1 implements AuthenticationRestClientV1 {
     public ResponseEntity<?> login(CustomerAuthDto dto) {
         Map<String, String> response = new HashMap<>();
         try{
+            authentication.authenticate(dto);
             var jwt =tokenCreate.tokenCreate(dto);
             response.put("username", dto.username());
             response.put("jwt", jwt);
-        }catch (UsernameNotFoundException e){
+        }catch (Exception e){
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
