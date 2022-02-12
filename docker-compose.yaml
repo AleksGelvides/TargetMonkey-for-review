@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - 5433:5432
+      - 5434:5432
 
   eureka-service:
     image: eureka-server
@@ -31,15 +31,6 @@ services:
       - ../src:/opt/app
     ports:
       - 8089:8089
-    environment:
-      - SPRING_PROFILES_ACTIVE=stage
-
-  db-struct:
-    image: db-struct
-    container_name: db-struct
-    build: ./database-struct
-    volumes:
-      - ../src:/opt/app
     environment:
       - SPRING_PROFILES_ACTIVE=stage
 

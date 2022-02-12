@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: classpath:db/changelog/changeset/create-customer-and-company-table.yaml

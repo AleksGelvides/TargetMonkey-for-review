@@ -1,0 +1,195 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.1
+      author: Aleksey Gelvides
+      comment: Create table "customers"
+      changes:
+        - createTable:
+            tableName: customers
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 1.0.2
+      author: Aleksey Gelvides
+      comment: Create table "roles"
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 1.0.3
+      author: Aleksey Gelvides
+      comment: Create table "roles_customers"
+      changes:
+        - createTable:
+            tableName: roles_customers
+            columns:
+              - column:
+                  name: customer_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 1.0.4
+      author: Aleksey Gelvides
+      comment: Behavior when changing or removing customer
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: customer_id
+            baseTableName: roles_customers
+            constraintName: fk_customer_role_customer
+            onDelete: cascade
+            onUpdate: restrict
+            referencedTableName: customers
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 1.0.5
+      author: Aleksey Gelvides
+      comment: Behavior when changing or removing role
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: roles_customers
+            constraintName: fk_role_customer_role
+            onDelete: cascade
+            onUpdate: restrict
+            referencedTableName: roles
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 1.0.6
+      author: Aleksey Gelvides
+      comment: Create roles
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_CUSTOMER
+              - column:
+                  name: created
+                  value: today
+              - column:
+                  name: updated
+                  value: today
+              - column:
+                  name: status
+                  value: ACTIVE
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+              - column:
+                  name: created
+                  value: today
+              - column:
+                  name: updated
+                  value: today
+              - column:
+                  name: status
+                  value: ACTIVE
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_ADVERTISER
+              - column:
+                  name: created
+                  value: today
+              - column:
+                  name: updated
+                  value: today
+              - column:
+                  name: status
+                  value: ACTIVE
+
+
+
+
+
