@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5434/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  application:
+    name: customer-service
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://host.docker.internal:8761/eureka
+  instance:
+    preferIpAddress: true
+

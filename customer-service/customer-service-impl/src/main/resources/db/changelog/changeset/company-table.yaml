@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 100
+      author: Aleksey Gelvides
+      comment: Create table "Companies"
+      changes:
+        - createTable:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: owner_id
+                  type: integer
+                  constraints:
+                    foreignKeyName: customer_article_fk
+                    referencedTableName: customers
+                    referencedColumnNames: id
+              - column:
+                  name: company_name
+                  type: varchar
+              - column:
+                  name: category
+                  type: varchar
