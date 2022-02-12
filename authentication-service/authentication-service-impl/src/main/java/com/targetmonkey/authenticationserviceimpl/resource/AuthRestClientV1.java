@@ -40,8 +40,6 @@ public class AuthRestClientV1 implements AuthenticationRestClientV1 {
     public ResponseEntity<?> login(CustomerAuthDto dto) {
         Map<String, String> response = new HashMap<>();
         try{
-            authenticationManagerBean.authenticate(
-                    new UsernamePasswordAuthenticationToken(dto.username(), dto.password()));
             var jwt =tokenCreate.tokenCreate(dto);
             response.put("username", dto.username());
             response.put("jwt", jwt);
