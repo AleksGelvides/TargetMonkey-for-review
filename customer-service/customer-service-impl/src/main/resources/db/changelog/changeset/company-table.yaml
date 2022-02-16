@@ -9,7 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
+                  type: bigserial
                   constraints:
                     primaryKey: true
                     nullable: false

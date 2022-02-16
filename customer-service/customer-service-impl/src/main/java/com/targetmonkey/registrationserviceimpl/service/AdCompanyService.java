@@ -1,6 +1,5 @@
 package com.targetmonkey.registrationserviceimpl.service;
 
-import com.targetmonkey.registrationserviceimpl.builders.AdCompanyBuilder;
 import com.targetmonkey.registrationserviceimpl.repository.interfaces.AdCompanyRegRepository;
 import com.targetmonkey.registrationserviceapi.dto.AdCompanyRegistrationDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -16,49 +15,47 @@ import java.util.List;
 public class AdCompanyService implements ApiRegistrationCompany {
     @Autowired
     AdCompanyRegRepository adCompanyRegRepository;
-    @Autowired
-    AdCompanyBuilder adCompanyBuilder;
 
 
     @Override
     public void saveCompany(AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
-        adCompanyRegRepository.save(adCompanyBuilder.dtoToJpa(adCompanyRegistrationDTO));
-        log.info("Компания " + adCompanyRegistrationDTO + " была сохранена");
+//        adCompanyRegRepository.save(adCompanyBuilder.dtoToJpa(adCompanyRegistrationDTO));
+//        log.info("Компания " + adCompanyRegistrationDTO + " была сохранена");
     }
 
     @Override
     public List<AdCompanyRegistrationDTO> getAllCompany() {
         List<AdCompanyRegistrationDTO> adCompanyRegistrationDTOS = new ArrayList<>();
-        adCompanyRegRepository
-                .findAll().stream()
-                .forEach(adCustomerRegistrationJpa ->
-                        adCompanyRegistrationDTOS.add(adCompanyBuilder.jpaToDto(adCustomerRegistrationJpa)));
-        log.info("Показать все компании. Всего компаний: " + adCompanyRegistrationDTOS.size());
+//        adCompanyRegRepository
+//                .findAll().stream()
+//                .forEach(adCustomerRegistrationJpa ->
+//                        adCompanyRegistrationDTOS.add(adCompanyBuilder.jpaToDto(adCustomerRegistrationJpa)));
+//        log.info("Показать все компании. Всего компаний: " + adCompanyRegistrationDTOS.size());
         return adCompanyRegistrationDTOS;
     }
 
     @Override
     public AdCompanyRegistrationDTO getToId(int id) {
-        var company = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
-        log.info("Вызов компании по ID: " + id + " :: " + company);
-        return company;
+//        var company = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
+//        log.info("Вызов компании по ID: " + id + " :: " + company);
+        return null;
     }
 
     @Override
     public void editCompany(int id, AdCompanyRegistrationDTO adCompanyRegistrationDTO) {
-        var oldCompany = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
-        log.info("Изменение компании: " + oldCompany);
-        oldCompany.setCompanyName(adCompanyRegistrationDTO.getCompanyName())
-                .setOwnerId(adCompanyRegistrationDTO.getOwnerId())
-                .setCategory(adCompanyRegistrationDTO.getCategory());
-        log.info("Компания обновлена: " + oldCompany);
-        adCompanyRegRepository.save(adCompanyBuilder.dtoToJpa(oldCompany));
-        log.info("Компания сохранена");
+//        var oldCompany = adCompanyBuilder.jpaToDto(adCompanyRegRepository.getById(id));
+//        log.info("Изменение компании: " + oldCompany);
+//        oldCompany.setCompanyName(adCompanyRegistrationDTO.getCompanyName())
+//                .setOwnerId(adCompanyRegistrationDTO.getOwnerId())
+//                .setCategory(adCompanyRegistrationDTO.getCategory());
+//        log.info("Компания обновлена: " + oldCompany);
+//        adCompanyRegRepository.save(adCompanyBuilder.dtoToJpa(oldCompany));
+//        log.info("Компания сохранена");
     }
 
     @Override
     public void deleteCompany(int id) {
         adCompanyRegRepository.deleteById(id);
-        log.info("Компания ID: " + id + " была удалена");
+//        log.info("Компания ID: " + id + " была удалена");
     }
 }
