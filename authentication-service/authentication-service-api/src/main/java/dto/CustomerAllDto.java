@@ -20,5 +20,5 @@ public class CustomerAllDto {
     private Date created;
     private Date updated;
     private Status status;
-    List<? extends Role> roles;
+    List<String> roles;
 }

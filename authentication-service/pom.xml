@@ -28,10 +28,18 @@
         <lombok.version>1.18.22</lombok.version>
         <postgresql.version>42.3.2</postgresql.version>
         <liquibase.version>4.7.1</liquibase.version>
+        <springdoc.version>1.6.5</springdoc.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
