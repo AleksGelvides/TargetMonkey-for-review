@@ -1,21 +1,19 @@
 package com.targetmonkey.authenticationserviceimpl.resource;
 
-import com.targetmonkey.authenticationserviceimpl.exceptions.AuthenticationError;
-import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerNotFoundException;
-import com.targetmonkey.authenticationserviceimpl.jwt.Authentication;
-import com.targetmonkey.authenticationserviceimpl.jwt.JwtTokenCreate;
+import com.targetmonkey.authenticationserviceimpl.service.CustomerServiceImpl;
+import com.targetmonkey.authenticationserviceimpl.serviceapi.CustomerService;
+import com.targetmonkey.jwtcommon.security.jwt.JwtTokenProvider;
 import dto.CustomerAuthDto;
-import liquibase.pro.packaged.S;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import resource.AuthenticationRestClientV1;
 
@@ -25,27 +23,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
+@ComponentScan("com.targetmonkey.jwtcommon")
 @RestController
 @RequestMapping("/api/v1/auth/")
 public class AuthRestClientV1 implements AuthenticationRestClientV1 {
-    private final JwtTokenCreate tokenCreate;
-    private final Authentication authentication;
-
     @Autowired
-    public AuthRestClientV1(JwtTokenCreate jwtTokenCreate,
-                            Authentication authentication){
-        this.tokenCreate = jwtTokenCreate;
-        this.authentication = authentication;
-    }
+    private AuthenticationManager authenticationManagerBean;
+    @Autowired
+    private JwtTokenProvider provider;
+    @Autowired
+    CustomerServiceImpl customerService;
+
 
 
     @Override
     public ResponseEntity<?> login(CustomerAuthDto dto) {
         Map<String, String> response = new HashMap<>();
         try{
-            authentication.authenticate(dto);
-            var jwt =tokenCreate.tokenCreate(dto);
-            response.put("username", dto.username());
+            UserDetails user = customerService.loadUserByUsername(dto.getUsername());
+            authenticationManagerBean.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
+            String jwt = provider.createToken(user);
+            response.put("username", user.getUsername());
             response.put("jwt", jwt);
         }catch (Exception e){
             log.error(e.getMessage());

@@ -20,5 +20,4 @@ public class AuthenticationServiceImplApplication {
         return new BCryptPasswordEncoder();
     }
 
-
 }
