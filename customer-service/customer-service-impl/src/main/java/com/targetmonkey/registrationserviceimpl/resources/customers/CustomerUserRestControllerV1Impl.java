@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.webjars.NotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RestController
 public class CustomerUserRestControllerV1Impl implements CustomerUserRestControllerV1 {
@@ -17,9 +19,10 @@ public class CustomerUserRestControllerV1Impl implements CustomerUserRestControl
     private CustomerFacade customerFacade;
 
     @Override
-    public ResponseEntity<?> getCustomerBuId(long id) {
+    public ResponseEntity<?> getCustomerBuId(HttpServletRequest request) {
         try{
-            var customer = customerFacade.getCustomerDtoFromUser(id);
+            var customer =
+                    customerFacade.getCustomerDtoFromUser(request.getHeader("Username"));
             return new ResponseEntity<>(customer, HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());
@@ -28,9 +31,10 @@ public class CustomerUserRestControllerV1Impl implements CustomerUserRestControl
     }
 
     @Override
-    public ResponseEntity<?> update(CustomerDto customerDto) {
+    public ResponseEntity<?> update(HttpServletRequest request, CustomerDto customerDto) {
         try{
-            var updated = customerFacade.editCustomerDtoFromUser(customerDto);
+            var updated = customerFacade.editCustomerDtoFromUser(
+                    request.getHeader("Username"), customerDto);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());

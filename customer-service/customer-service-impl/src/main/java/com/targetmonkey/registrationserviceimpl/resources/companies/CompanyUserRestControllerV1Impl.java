@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.webjars.NotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RestController
 public class CompanyUserRestControllerV1Impl implements CompanyUserRestControllerV1 {
@@ -18,9 +20,10 @@ public class CompanyUserRestControllerV1Impl implements CompanyUserRestControlle
     private CustomerFacade customerFacade;
 
     @Override
-    public ResponseEntity<?> getCompanyById(long ownerId, long companyId) {
+    public ResponseEntity<?> getCompanyById(HttpServletRequest request, long companyId) {
         try{
-            var company = customerFacade.getCompanyByOwnerIdAndCompanyId(ownerId, companyId);
+            var company = customerFacade.getCompanyByUsernameAndCompanyId(
+                    request.getHeader("Username"), companyId);
             return new ResponseEntity<>(company, HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());
@@ -29,9 +32,10 @@ public class CompanyUserRestControllerV1Impl implements CompanyUserRestControlle
     }
 
     @Override
-    public ResponseEntity<?> createCompany(long ownerId, CompanyUserDto companyUserDto) {
+    public ResponseEntity<?> createCompany(HttpServletRequest request, CompanyUserDto companyUserDto) {
         try{
-            var response = customerFacade.createCompany(ownerId, companyUserDto);
+            var response =
+                    customerFacade.createCompany(request.getHeader("Username"), companyUserDto);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception e){
             log.error(e.getMessage());
@@ -40,11 +44,11 @@ public class CompanyUserRestControllerV1Impl implements CompanyUserRestControlle
     }
 
     @Override
-    public ResponseEntity<?> editCompany(long ownerId,
-                                         long companyId,
+    public ResponseEntity<?> editCompany(long companyId,
                                          CompanyUserDto companyUserDto) {
         try{
-            var response = customerFacade.editCompany(ownerId, companyId, companyUserDto);
+            var response = customerFacade
+                    .editCompany(companyId, companyUserDto);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());
@@ -56,9 +60,10 @@ public class CompanyUserRestControllerV1Impl implements CompanyUserRestControlle
     }
 
     @Override
-    public ResponseEntity<?> deleteCompany(long ownerId, long companyId) {
+    public ResponseEntity<?> deleteCompany(HttpServletRequest request, long companyId) {
         try{
-            customerFacade.deleteCompany(ownerId, companyId);
+            customerFacade
+                    .deleteCompany(request.getHeader("Username"), companyId);
             return new ResponseEntity<>("Company removed successfully", HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());

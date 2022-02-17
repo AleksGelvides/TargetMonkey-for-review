@@ -12,10 +12,12 @@ public interface CustomerServiceAPI {
 
     CustomerAdminDto getToId(long id) throws NotFoundException;
 
-    CustomerAdminDto editCustomer(long id, CustomerDto customerDto) throws NotFoundException;
+    CustomerAdminDto getByUserName(String username);
 
-    CustomerAdminDto editCustomer(long id, CustomerAdminDto customerAdminDto) throws NotFoundException;
+    CustomerAdminDto editCustomer(String username, CustomerDto newCustomer) throws NotFoundException;
 
-    void deleteCustomer(long id) throws NotFoundException;
+    CustomerAdminDto editCustomer(String username, CustomerAdminDto customerAdminDto) throws NotFoundException;
+
+    void deleteCustomer(String username) throws NotFoundException;
 
 }

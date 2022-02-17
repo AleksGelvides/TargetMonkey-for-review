@@ -44,7 +44,7 @@ public class CompanyServiceImp implements CompanyServiceAPI {
     }
 
     @Override
-    public CompanyAdminDto getByCompanyIdAndCustomerId(long ownerId, long companyId) {
+    public CompanyAdminDto getByOwnerIdAndCompanyId(long ownerId, long companyId) {
         var company = companyRepository.findByOwnerIdAndId(ownerId, companyId);
         if(company == null)
             throw new NotFoundException("This user does not have a company with this ID");
