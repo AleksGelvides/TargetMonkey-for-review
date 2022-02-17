@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 100
+      id: 1.0.7
       author: Aleksey Gelvides
       comment: Create table "Companies"
       changes:
@@ -15,14 +15,44 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: owner_id
-                  type: integer
+                  type: bigint
                   constraints:
                     foreignKeyName: customer_article_fk
                     referencedTableName: customers
                     referencedColumnNames: id
               - column:
                   name: company_name
-                  type: varchar
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+                    unique: true
               - column:
                   name: category
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
                   type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: leads
+                  type: bigserial
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: varchar(24)
+                  constraints:
+                    nullable: false

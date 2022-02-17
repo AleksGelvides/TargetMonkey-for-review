@@ -8,7 +8,7 @@ import com.targetmonkey.registrationserviceimpl.repository.interfaces.CustomerRe
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.targetmonkey.registrationserviceimpl.serviceapi.CustomerService;
+import com.targetmonkey.registrationserviceimpl.serviceapi.CustomerServiceAPI;
 import org.webjars.NotFoundException;
 
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl implements CustomerServiceAPI {
 
     @Autowired
     CustomerRepository customerRepository;
