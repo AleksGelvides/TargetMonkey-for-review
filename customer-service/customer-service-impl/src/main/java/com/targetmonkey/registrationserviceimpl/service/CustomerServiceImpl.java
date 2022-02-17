@@ -38,38 +38,37 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
     }
 
     @Override
-    public CustomerAdminDto editCustomer(long id, CustomerDto customerDto) {
-        var customerOld =  getToId(id);
-        log.info("IN editCustomer FOR CUSTOMERS: Найден пользователь с id: {}, Пользователь: {}", id, customerOld);
+    public CustomerAdminDto getByUserName(String username) {
+        var customerAdminDto = CustomersMapper.INSTANCE.toCustomerAdminDto(
+                customerRepository.findByUsername(username));
+        if(customerAdminDto == null)
+            throw new NotFoundException("User not found");
+        return customerAdminDto;
+    }
 
-        CustomersMapper.INSTANCE.updateCustomerDTO(customerDto, customerOld);
-
-        var updatedCustomer = customerRepository.save(
-                CustomersMapper.INSTANCE.toCustomerJpa(customerOld.setUpdated(new Date())));
-        log.info("IN editCustomer FOR CUSTOMERS: пользователь сохранен с id: {}, Пользователь: {}", id, customerOld);
-
+    @Override
+    public CustomerAdminDto editCustomer(String username, CustomerDto newCustomer) {
+        var jpa = customerRepository.findByUsername(username);
+        CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
+        jpa.setUpdated(new Date());
+        var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
 
     @Override
-    public CustomerAdminDto editCustomer(long id, CustomerAdminDto customerAdminDto) {
-        var customerOld =  getToId(id);
-        log.info("IN editCustomer FOR CUSTOMERS: Найден пользователь с id: {}, Пользователь: {}", id, customerOld);
-
-        CustomersMapper.INSTANCE.updateCustomerDTO(customerAdminDto, customerOld);
-
-        var updatedCustomer = customerRepository.save(
-                CustomersMapper.INSTANCE.toCustomerJpa(customerOld.setUpdated(new Date())));
-        log.info("IN editCustomer FOR CUSTOMERS: пользователь сохранен с id: {}, Пользователь: {}", id, customerOld);
-
+    public CustomerAdminDto editCustomer(String username, CustomerAdminDto newCustomer) {
+        var jpa = customerRepository.findByUsername(username);
+        CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
+        jpa.setUpdated(new Date());
+        var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
 
     @Override
-    public void deleteCustomer(long id) throws NotFoundException{
+    public void deleteCustomer(String username) throws NotFoundException{
         try {
-            customerRepository.deleteById(id);
-            log.info("IN deleteCustomer FOR ADMIN: пользователь удален с id: {}", id);
+            customerRepository.deleteByUsername(username);
+            log.info("IN deleteCustomer FOR ADMIN: пользователь удален с id: {}", username);
         }catch (Exception e){
             throw new NotFoundException("Customer not found");
         }

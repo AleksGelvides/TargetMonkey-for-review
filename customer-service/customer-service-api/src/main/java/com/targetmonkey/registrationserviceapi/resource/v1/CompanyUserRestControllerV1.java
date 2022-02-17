@@ -4,24 +4,25 @@ import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/api/users/{ownerId}/companies/v1/")
+@RequestMapping("/api/users/companies/v1/")
 public interface CompanyUserRestControllerV1 {
 
     @GetMapping("company/{companyId}")
-    ResponseEntity<?> getCompanyById(@PathVariable long ownerId,
+    ResponseEntity<?> getCompanyById(HttpServletRequest request,
                                      @PathVariable long companyId);
 
     @PostMapping("create")
-    ResponseEntity<?> createCompany(@PathVariable long ownerId,
+    ResponseEntity<?> createCompany(HttpServletRequest request,
                                     @RequestBody CompanyUserDto companyUserDto);
 
     @PutMapping("edit/{companyId}")
-    ResponseEntity<?> editCompany(@PathVariable long ownerId,
-                                  @PathVariable long companyId,
+    ResponseEntity<?> editCompany(@PathVariable long companyId,
                                   @RequestBody CompanyUserDto companyUserDto);
 
     @DeleteMapping("delete/{companyId}")
-    ResponseEntity<?> deleteCompany(@PathVariable long ownerId,
+    ResponseEntity<?> deleteCompany(HttpServletRequest request,
                                     @PathVariable long companyId);
 }

@@ -11,7 +11,6 @@ import com.targetmonkey.registrationserviceimpl.service.CompanyServiceImp;
 import com.targetmonkey.registrationserviceimpl.service.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.webjars.NotFoundException;
 
 import java.util.Date;
 import java.util.List;
@@ -26,44 +25,44 @@ public class CustomerFacade {
 
     //USER
 
-    public CustomerViewDto getCustomerDtoFromUser(long id){
-        var customerView = CustomersMapper.INSTANCE.toCustomerView(customerService.getToId(id));
-        List<CompanyUserDto> companies = companyServiceImp.getAllByOwnerId(id).stream()
+    public CustomerViewDto getCustomerDtoFromUser(String username){
+        var customerView =
+                CustomersMapper.INSTANCE.toCustomerView(customerService.getByUserName(username));
+        List<CompanyUserDto> companies = companyServiceImp.getAllByOwnerId(customerView.getId()).stream()
                 .map(CompanyMapper.INSTANCE::toCompanyUserDto).toList();
         customerView.setCompanies(companies);
         return customerView;
     }
 
-    public CustomerDto editCustomerDtoFromUser(CustomerDto customerDto){
-        var updatedDto = customerService.editCustomer(customerDto.getId(), customerDto);
+    public CustomerDto editCustomerDtoFromUser(String username, CustomerDto updatedCustomerDto){
+        var updatedDto = customerService.editCustomer(username, updatedCustomerDto);
         return CustomersMapper.INSTANCE.toCustomerDto(updatedDto);
     }
 
-    public CompanyUserDto createCompany(long idCustomer, CompanyUserDto companyUserDto){
+    public CompanyUserDto createCompany(String username, CompanyUserDto companyUserDto){
         var companyAdminDto = CompanyMapper.INSTANCE.toCompanyAdminFromUser(companyUserDto);
-        companyAdminDto.setOwnerId(idCustomer)
-                .setOwnerId(idCustomer)
+        companyAdminDto.setOwnerId(customerService.getByUserName(username).getId())
                 .setCreated(new Date())
                 .setUpdated(new Date())
                 .setStatus(Status.ACTIVE);
-        var response = companyServiceImp.createCompany(companyAdminDto);
-        return CompanyMapper.INSTANCE.toCompanyUserDto(companyAdminDto);
+        var result = companyServiceImp.createCompany(companyAdminDto);
+        return CompanyMapper.INSTANCE.toCompanyUserDto(result);
     }
 
-    public CompanyUserDto getCompanyByOwnerIdAndCompanyId(long ownerId,long companyId){
-        var response = companyServiceImp.getByCompanyIdAndCustomerId(ownerId, companyId);
+    public CompanyUserDto getCompanyByUsernameAndCompanyId(String username, long companyId){
+        var customer = customerService.getByUserName(username);
+        var response = companyServiceImp.
+                getByOwnerIdAndCompanyId(customer.getId(), companyId);
         return CompanyMapper.INSTANCE.toCompanyUserDto(response);
     }
 
-    public CompanyUserDto editCompany(long ownerId, long companyId, CompanyUserDto companyUserDto){
-        var updatedCompany = companyServiceImp
-                .getByCompanyIdAndCustomerId(ownerId, companyId);
-        updatedCompany = companyServiceImp.editCompany(companyId, companyUserDto);
+    public CompanyUserDto editCompany(long id, CompanyUserDto companyUserDto){
+        var updatedCompany = companyServiceImp.editCompany(id, companyUserDto);
         return CompanyMapper.INSTANCE.toCompanyUserDto(updatedCompany);
     }
 
-    public void deleteCompany(long ownerId, long companyId){
-        companyServiceImp.deleteCompany(ownerId, companyId);
+    public void deleteCompany(String username, long companyId){
+        companyServiceImp.deleteCompany(customerService.getByUserName(username).getId(), companyId);
     }
 
     //ADMIN
@@ -76,12 +75,12 @@ public class CustomerFacade {
         return customerService.getAllCustomers();
     }
 
-    public CustomerAdminDto editCustomerAdminFromAdmin(CustomerAdminDto customerAdminDto){
-        return customerService.editCustomer(customerAdminDto.getId(), customerAdminDto);
+    public CustomerAdminDto editCustomerAdminFromAdmin(String username, CustomerAdminDto customerAdminDto){
+        return customerService.editCustomer(username, customerAdminDto);
     }
 
-    public void deleteCustomer(long id){
-        customerService.deleteCustomer(id);
+    public void deleteCustomer(String username){
+        customerService.deleteCustomer(username);
     }
 
 }

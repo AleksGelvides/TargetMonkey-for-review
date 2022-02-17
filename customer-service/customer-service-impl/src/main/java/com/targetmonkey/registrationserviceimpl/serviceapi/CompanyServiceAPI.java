@@ -13,7 +13,7 @@ public interface CompanyServiceAPI {
 
     CompanyAdminDto getCompanyById(long id);
 
-    CompanyAdminDto getByCompanyIdAndCustomerId(long customerId, long companyId);
+    CompanyAdminDto getByOwnerIdAndCompanyId(long customerId, long companyId);
 
     CompanyAdminDto createCompany(CompanyAdminDto companyAdminDto);
 

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.webjars.NotFoundException;
 
@@ -43,7 +44,7 @@ public class CustomerAdminRestControllerV1Impl implements CustomerAdminRestContr
     @Override
     public ResponseEntity<?> update(CustomerAdminDto customerAdminDto) {
         try{
-            var updated = customerFacade.editCustomerAdminFromAdmin(customerAdminDto);
+            var updated = customerFacade.editCustomerAdminFromAdmin(null, customerAdminDto);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());
@@ -54,7 +55,7 @@ public class CustomerAdminRestControllerV1Impl implements CustomerAdminRestContr
     @Override
     public ResponseEntity<?> deleteCustomer(long id) {
         try{
-            customerFacade.deleteCustomer(id);
+            customerFacade.deleteCustomer(null);
             return new ResponseEntity<>("Customer removed successfully", HttpStatus.OK);
         }catch (NotFoundException e){
             log.error(e.getMessage());

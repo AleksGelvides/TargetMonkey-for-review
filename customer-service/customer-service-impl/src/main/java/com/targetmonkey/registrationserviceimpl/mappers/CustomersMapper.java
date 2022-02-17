@@ -19,10 +19,8 @@ public interface CustomersMapper {
     CustomerDto toCustomerDto(CustomerAdminDto customerAdminDto); // Из Админа в Кастомера
 
     CustomerViewDto toCustomerView(CustomerAdminDto customerAdminDto);
+    void updateCustomerJpa(CustomerDto updatedUserCustomer, @MappingTarget CustomerJpa customerJpa);
 
-    void updateCustomerDTO(CustomerAdminDto newCustomer, @MappingTarget CustomerAdminDto oldCustomer); //Обновление: Админ/Админ
-
-    void updateCustomerDTO(CustomerDto newCustomer, @MappingTarget CustomerAdminDto oldCustomer);   //Обновление: Кастомер/Админ
-
+    void updateCustomerJpa(CustomerAdminDto updatedUserCustomer, @MappingTarget CustomerJpa customerJpa);
 
 }

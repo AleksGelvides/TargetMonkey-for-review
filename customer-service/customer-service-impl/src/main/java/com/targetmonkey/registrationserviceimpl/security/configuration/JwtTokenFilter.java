@@ -24,10 +24,13 @@ public class JwtTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         try {
             String token = provider.resolveToken((HttpServletRequest) request);
-            if (token != null || provider.validateToken(token)) {
-                var auth = provider.getAuthentication(token);
-                if (auth != null)
-                    SecurityContextHolder.getContext().setAuthentication(auth);
+            if (token != null && provider.validateToken(token)) {
+                if (((HttpServletRequest) request).getHeader("Username")
+                        .equals(provider.getUserName(token))) {
+                    var auth = provider.getAuthentication(token);
+                    if (auth != null)
+                        SecurityContextHolder.getContext().setAuthentication(auth);
+                }
             }
             chain.doFilter(request, response);
         } catch (Exception e) {
