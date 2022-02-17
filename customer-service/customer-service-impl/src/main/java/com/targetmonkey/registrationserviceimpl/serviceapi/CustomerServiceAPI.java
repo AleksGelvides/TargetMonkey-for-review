@@ -6,7 +6,7 @@ import org.webjars.NotFoundException;
 
 import java.util.List;
 
-public interface CustomerService {
+public interface CustomerServiceAPI {
 
     List<CustomerAdminDto> getAllCustomers();
 

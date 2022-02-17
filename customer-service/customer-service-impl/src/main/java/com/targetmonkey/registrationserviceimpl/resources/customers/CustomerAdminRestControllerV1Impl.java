@@ -1,10 +1,9 @@
-package com.targetmonkey.registrationserviceimpl.resources;
+package com.targetmonkey.registrationserviceimpl.resources.customers;
 
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.resource.v1.CustomerAdminRestControllerV1;
 import com.targetmonkey.registrationserviceimpl.facade.CustomerFacade;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-public class AdCustomerAdminRestControllerV1 implements CustomerAdminRestControllerV1 {
+public class CustomerAdminRestControllerV1Impl implements CustomerAdminRestControllerV1 {
     @Autowired
     private CustomerFacade customerFacade;
 

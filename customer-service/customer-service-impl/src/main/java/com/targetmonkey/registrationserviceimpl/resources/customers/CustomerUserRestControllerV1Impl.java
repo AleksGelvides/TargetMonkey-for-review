@@ -1,4 +1,4 @@
-package com.targetmonkey.registrationserviceimpl.resources;
+package com.targetmonkey.registrationserviceimpl.resources.customers;
 
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
 import com.targetmonkey.registrationserviceapi.resource.v1.CustomerUserRestControllerV1;
@@ -12,7 +12,7 @@ import org.webjars.NotFoundException;
 
 @Slf4j
 @RestController
-public class AdCustomerUserRestControllerV1 implements CustomerUserRestControllerV1 {
+public class CustomerUserRestControllerV1Impl implements CustomerUserRestControllerV1 {
     @Autowired
     private CustomerFacade customerFacade;
 

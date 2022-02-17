@@ -2,6 +2,7 @@ package com.targetmonkey.registrationserviceimpl.mappers;
 
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
+import com.targetmonkey.registrationserviceapi.dto.userinterfacesdto.CustomerViewDto;
 import com.targetmonkey.registrationserviceimpl.entity.CustomerJpa;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -16,6 +17,8 @@ public interface CustomersMapper {
     CustomerJpa toCustomerJpa(CustomerAdminDto customerAdminDto); // Из Админа в JPA
 
     CustomerDto toCustomerDto(CustomerAdminDto customerAdminDto); // Из Админа в Кастомера
+
+    CustomerViewDto toCustomerView(CustomerAdminDto customerAdminDto);
 
     void updateCustomerDTO(CustomerAdminDto newCustomer, @MappingTarget CustomerAdminDto oldCustomer); //Обновление: Админ/Админ
 
