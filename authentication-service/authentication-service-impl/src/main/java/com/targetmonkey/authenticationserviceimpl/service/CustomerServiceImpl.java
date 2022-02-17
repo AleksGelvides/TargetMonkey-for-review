@@ -1,14 +1,14 @@
 package com.targetmonkey.authenticationserviceimpl.service;
 
-import com.targetmonkey.authenticationserviceimpl.entity.CustomerJpa;
-import com.targetmonkey.authenticationserviceimpl.entity.RoleJpa;
+import com.targetmonkey.authenticationserviceimpl.domain.CustomerJpa;
+import com.targetmonkey.authenticationserviceimpl.domain.RoleJpa;
 import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerWasRegisteredException;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.authenticationserviceimpl.repository.RoleRepository;
 import com.targetmonkey.authenticationserviceimpl.serviceapi.CustomerService;
+import com.targetmonkey.securitycommon.security.domain.Role;
+import com.targetmonkey.securitycommon.security.domain.Status;
 import dto.CustomerRegistrationDto;
-import enums.Role;
-import enums.Status;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +42,10 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     @SneakyThrows
     public void registrationCustomer(CustomerRegistrationDto customerRegistrationDto) {
-        var customerRole = roleRepository.findByName(Role.ROLE_CUSTOMER);
-        List<RoleJpa> roles = new ArrayList<>();
-        roles.add(customerRole);
-        var customerJpa = new CustomerJpa(customerRegistrationDto, Status.ACTIVE, roles);
+        var customerRole = roleRepository.findByName(String.valueOf(Role.ROLE_CUSTOMER));
+        List<RoleJpa> roleJpas = new ArrayList<>();
+        roleJpas.add(customerRole);
+        var customerJpa = new CustomerJpa(customerRegistrationDto, Status.ACTIVE, roleJpas);
         customerJpa.setPassword(passwordEncoder.encode(customerJpa.getPassword()));
         if (customerRepository.findByUsername(customerRegistrationDto.getUserName()) != null) {
             throw new CustomerWasRegisteredException("This user was registered");
@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var customerJpa = customerRepository.findByUsername(username);
-        List<SimpleGrantedAuthority> authorities = customerJpa.getRoles().stream()
+        List<SimpleGrantedAuthority> authorities = customerJpa.getRoleJpas().stream()
                 .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName().toString()))
                 .toList();
         return new User(customerJpa.getUsername(), customerJpa.getPassword(), authorities);

@@ -2,7 +2,7 @@ package com.targetmonkey.registrationserviceimpl.mappers;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
-import com.targetmonkey.registrationserviceimpl.entity.CompanyJpa;
+import com.targetmonkey.registrationserviceimpl.domain.CompanyJpa;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

@@ -3,7 +3,7 @@ package com.targetmonkey.registrationserviceimpl.service;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
 import com.targetmonkey.registrationserviceimpl.mappers.CustomersMapper;
-import com.targetmonkey.registrationserviceimpl.repository.interfaces.CustomerRepository;
+import com.targetmonkey.registrationserviceimpl.repository.CustomerRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

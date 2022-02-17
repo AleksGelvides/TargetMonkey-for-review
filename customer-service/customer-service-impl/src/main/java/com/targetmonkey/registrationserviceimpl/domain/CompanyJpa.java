@@ -1,14 +1,12 @@
-package com.targetmonkey.registrationserviceimpl.entity;
+package com.targetmonkey.registrationserviceimpl.domain;
 
 
 import com.targetmonkey.registrationserviceapi.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.mapstruct.EnumMapping;
 
 import javax.persistence.*;
-import javax.print.DocFlavor;
 import java.util.Date;
 
 @Data

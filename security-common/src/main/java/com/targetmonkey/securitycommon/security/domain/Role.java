@@ -1,6 +1,4 @@
-package enums;
-
-import lombok.Data;
+package com.targetmonkey.securitycommon.security.domain;
 
 public enum Role {
     ROLE_CUSTOMER,

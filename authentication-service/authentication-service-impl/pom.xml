@@ -80,7 +80,7 @@
 
         <dependency>
             <groupId>com.targetmonkey</groupId>
-            <artifactId>jwt-common</artifactId>
+            <artifactId>security-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

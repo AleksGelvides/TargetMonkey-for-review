@@ -1,10 +1,13 @@
-package com.targetmonkey.registrationserviceimpl.entity;
+package com.targetmonkey.registrationserviceimpl.domain;
 
+import liquibase.pro.packaged.S;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,6 +28,9 @@ public class CustomerJpa {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "email")
     private String email;
 
@@ -36,4 +42,12 @@ public class CustomerJpa {
 
     @Column(name = "status")
     private String status;
+
+    @ToString.Exclude
+    @Enumerated(EnumType.STRING)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_customers",
+            joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<RoleJpa> roles;
 }

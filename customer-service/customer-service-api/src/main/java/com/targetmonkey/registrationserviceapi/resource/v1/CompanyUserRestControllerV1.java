@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user/{ownerId}/companies/v1/")
+@RequestMapping("/api/users/{ownerId}/companies/v1/")
 public interface CompanyUserRestControllerV1 {
 
     @GetMapping("company/{companyId}")
