@@ -3,7 +3,7 @@ package com.targetmonkey.registrationserviceimpl.mappers;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
 import com.targetmonkey.registrationserviceapi.dto.userinterfacesdto.CustomerViewDto;
-import com.targetmonkey.registrationserviceimpl.entity.CustomerJpa;
+import com.targetmonkey.registrationserviceimpl.domain.CustomerJpa;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

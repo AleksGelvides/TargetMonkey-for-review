@@ -1,0 +1,7 @@
+jwt:
+  token:
+    secret: targetmonkey-jwt-secret
+    expired: 86400000
+
+
+

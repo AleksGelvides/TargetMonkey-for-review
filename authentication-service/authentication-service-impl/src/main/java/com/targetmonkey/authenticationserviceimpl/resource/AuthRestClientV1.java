@@ -1,8 +1,7 @@
 package com.targetmonkey.authenticationserviceimpl.resource;
 
 import com.targetmonkey.authenticationserviceimpl.service.CustomerServiceImpl;
-import com.targetmonkey.authenticationserviceimpl.serviceapi.CustomerService;
-import com.targetmonkey.jwtcommon.security.jwt.JwtTokenProvider;
+import com.targetmonkey.securitycommon.security.jwt.JwtTokenProvider;
 import dto.CustomerAuthDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@ComponentScan("com.targetmonkey.jwtcommon")
+@ComponentScan("com.targetmonkey.securitycommon")
 @RestController
 @RequestMapping("/api/v1/auth/")
 public class AuthRestClientV1 implements AuthenticationRestClientV1 {

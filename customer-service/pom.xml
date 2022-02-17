@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>customer-service-api</module>
         <module>customer-service-impl</module>
+        <module>customer-service-api</module>
     </modules>
 
     <properties>
@@ -31,6 +31,7 @@
         <springdoc.version>1.6.5</springdoc.version>
         <spring.boot.version>2.6.3</spring.boot.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <security-common.version>0.0.1-SNAPSHOT</security-common.version>
         <lombok.mapstruct.binding.verion>0.1.0</lombok.mapstruct.binding.verion>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -38,6 +39,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.targetmonkey</groupId>
+                <artifactId>security-common</artifactId>
+                <version>${security-common.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.mapstruct</groupId>

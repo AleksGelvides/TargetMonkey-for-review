@@ -1,7 +1,7 @@
-package com.targetmonkey.authenticationserviceimpl.entity;
+package com.targetmonkey.authenticationserviceimpl.domain;
 
-import enums.Role;
-import enums.Status;
+import com.targetmonkey.securitycommon.security.domain.Role;
+import com.targetmonkey.securitycommon.security.domain.Status;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -35,6 +35,6 @@ public class RoleJpa {
     @Column(name = "status")
     private Status status;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roleJpas", fetch = FetchType.LAZY)
     List<CustomerJpa> roles;
 }

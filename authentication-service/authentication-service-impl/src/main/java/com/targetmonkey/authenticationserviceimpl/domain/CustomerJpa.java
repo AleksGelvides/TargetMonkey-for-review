@@ -1,7 +1,7 @@
-package com.targetmonkey.authenticationserviceimpl.entity;
+package com.targetmonkey.authenticationserviceimpl.domain;
 
+import com.targetmonkey.securitycommon.security.domain.Status;
 import dto.CustomerRegistrationDto;
-import enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -55,9 +55,9 @@ public class CustomerJpa {
     @JoinTable(name = "roles_customers",
     joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    List<RoleJpa> roles;
+    private List<RoleJpa> roleJpas;
 
-    public CustomerJpa(CustomerRegistrationDto dto, Status status, List<RoleJpa> role){
+    public CustomerJpa(CustomerRegistrationDto dto, Status status, List<RoleJpa> roleJpa){
         this.name = dto.getName();
         this.surname = dto.getSurname();
         this.username = dto.getUserName();
@@ -66,7 +66,7 @@ public class CustomerJpa {
         this.created = new Date();
         this.updated = created;
         this.status = status;
-        this.roles = role;
+        this.roleJpas = roleJpa;
     }
 
 }

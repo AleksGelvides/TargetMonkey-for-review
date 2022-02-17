@@ -1,6 +1,6 @@
-package com.targetmonkey.registrationserviceimpl.repository.interfaces;
+package com.targetmonkey.registrationserviceimpl.repository;
 
-import com.targetmonkey.registrationserviceimpl.entity.CompanyJpa;
+import com.targetmonkey.registrationserviceimpl.domain.CompanyJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
