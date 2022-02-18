@@ -2,21 +2,16 @@ package com.targetmonkey.registrationserviceimpl.service;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
-import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
-import com.targetmonkey.registrationserviceimpl.domain.CompanyJpa;
-import com.targetmonkey.registrationserviceimpl.domain.CustomerJpa;
 import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 import com.targetmonkey.registrationserviceimpl.mappers.CompanyMapper;
 import com.targetmonkey.registrationserviceimpl.repository.CompanyRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.targetmonkey.registrationserviceimpl.serviceapi.CompanyServiceAPI;
 import org.webjars.NotFoundException;
 
-import java.rmi.ServerError;
 import java.util.Date;
 import java.util.List;
 
@@ -113,6 +108,10 @@ public class CompanyServiceImp implements CompanyServiceAPI {
 
     @Override
     public void deleteCompany(long id) {
-        companyRepository.deleteById(id);
+        try {
+            companyRepository.deleteById(id);
+        }catch (Exception e){
+            throw new NotFoundException("No company with this ID found");
+        }
     }
 }

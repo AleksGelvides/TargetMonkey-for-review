@@ -2,7 +2,6 @@ package com.targetmonkey.registrationserviceimpl.facade;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
-import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
 import com.targetmonkey.registrationserviceapi.dto.userinterfacesdto.CustomerViewDto;
 import com.targetmonkey.registrationserviceapi.enums.Status;
@@ -10,7 +9,6 @@ import com.targetmonkey.registrationserviceimpl.mappers.CompanyMapper;
 import com.targetmonkey.registrationserviceimpl.mappers.CustomersMapper;
 import com.targetmonkey.registrationserviceimpl.service.CompanyServiceImp;
 import com.targetmonkey.registrationserviceimpl.service.CustomerServiceImpl;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -67,24 +65,6 @@ public class CustomerFacade {
 
     public void deleteCompany(String username, long companyId){
         companyServiceImp.deleteCompany(customerService.getByUserName(username).getId(), companyId);
-    }
-
-    //ADMIN
-
-    public CustomerAdminDto getCustomerDtoFromAdmin(long id){
-        return customerService.getToId(id);
-    }
-
-    public List<CustomerAdminDto> getAllCustomersFromAdmin(){
-        return customerService.getAllCustomers();
-    }
-
-    public CustomerAdminDto editCustomerAdminFromAdmin(String username, CustomerAdminDto customerAdminDto){
-        return customerService.editCustomer(username, customerAdminDto);
-    }
-
-    public void deleteCustomer(String username){
-        customerService.deleteCustomer(username);
     }
 
 }
