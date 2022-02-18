@@ -55,9 +55,9 @@ public class CustomerJpa {
     @JoinTable(name = "roles_customers",
     joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private List<RoleJpa> roleJpas;
+    private List<RoleJpa> roles;
 
-    public CustomerJpa(CustomerRegistrationDto dto, Status status, List<RoleJpa> roleJpa){
+    public CustomerJpa(CustomerRegistrationDto dto, Status status, List<RoleJpa> roles){
         this.name = dto.getName();
         this.surname = dto.getSurname();
         this.username = dto.getUserName();
@@ -66,7 +66,7 @@ public class CustomerJpa {
         this.created = new Date();
         this.updated = created;
         this.status = status;
-        this.roleJpas = roleJpa;
+        this.roles = roles;
     }
 
 }

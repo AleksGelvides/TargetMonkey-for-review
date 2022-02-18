@@ -2,6 +2,7 @@ package com.targetmonkey.registrationserviceimpl.resources.customers;
 
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
 import com.targetmonkey.registrationserviceapi.resource.v1.CustomerUserRestControllerV1;
+import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 import com.targetmonkey.registrationserviceimpl.facade.CustomerFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class CustomerUserRestControllerV1Impl implements CustomerUserRestControl
             var updated = customerFacade.editCustomerDtoFromUser(
                     request.getHeader("Username"), customerDto);
             return new ResponseEntity<>(updated, HttpStatus.OK);
-        }catch (NotFoundException e){
+        }catch (Exception e){
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

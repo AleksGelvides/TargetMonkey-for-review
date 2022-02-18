@@ -29,10 +29,17 @@
         <postgresql.version>42.3.2</postgresql.version>
         <liquibase.version>4.7.1</liquibase.version>
         <springdoc.version>1.6.5</springdoc.version>
+        <security-common.version>0.0.1-SNAPSHOT</security-common.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.targetmonkey</groupId>
+                <artifactId>security-common</artifactId>
+                <version>${security-common.version}</version>
+            </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
             <dependency>

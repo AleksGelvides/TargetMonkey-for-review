@@ -2,14 +2,21 @@ package com.targetmonkey.registrationserviceimpl.service;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
+import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
+import com.targetmonkey.registrationserviceimpl.domain.CompanyJpa;
+import com.targetmonkey.registrationserviceimpl.domain.CustomerJpa;
+import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 import com.targetmonkey.registrationserviceimpl.mappers.CompanyMapper;
 import com.targetmonkey.registrationserviceimpl.repository.CompanyRepository;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.targetmonkey.registrationserviceimpl.serviceapi.CompanyServiceAPI;
 import org.webjars.NotFoundException;
 
+import java.rmi.ServerError;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +53,7 @@ public class CompanyServiceImp implements CompanyServiceAPI {
     @Override
     public CompanyAdminDto getByOwnerIdAndCompanyId(long ownerId, long companyId) {
         var company = companyRepository.findByOwnerIdAndId(ownerId, companyId);
-        if(company == null)
+        if (company == null)
             throw new NotFoundException("This user does not have a company with this ID");
 
         return CompanyMapper.INSTANCE.toCompanyAdminDto(company);
@@ -54,15 +61,19 @@ public class CompanyServiceImp implements CompanyServiceAPI {
 
 
     @Override
+    @SneakyThrows
     public CompanyAdminDto createCompany(CompanyAdminDto companyAdminDtoDto) {
+        CompanyAdminDto result;
+        if(companyRepository.findByCompanyName(companyAdminDtoDto.getCompanyName()) != null)
+            throw new ObjectRepeatingException("This company was registered");
         var resultJpa = companyRepository.save(CompanyMapper.INSTANCE.toCompanyJpa(companyAdminDtoDto));
-        var result = CompanyMapper.INSTANCE.toCompanyAdminDto(resultJpa);
+        result = CompanyMapper.INSTANCE.toCompanyAdminDto(resultJpa);
         return result;
     }
 
     @Override
     public CompanyAdminDto editCompany(long id, CompanyAdminDto companyAdminDto) {
-        var companyOld =  getCompanyById(id);
+        var companyOld = getCompanyById(id);
         log.info("IN editCompany FOR CUSTOMERS: Найдена компания с id: {}, Компания: {}", id, companyOld);
 
         CompanyMapper.INSTANCE.updateCompanyAdminDTO(companyAdminDto, companyOld);
@@ -78,7 +89,7 @@ public class CompanyServiceImp implements CompanyServiceAPI {
 
     @Override
     public CompanyAdminDto editCompany(long id, CompanyUserDto companyUserDto) {
-        var companyOld =  getCompanyById(id);
+        var companyOld = getCompanyById(id);
         log.info("IN editCompany FOR CUSTOMERS: Найдена компания с id: {}, Компания: {}", id, companyOld);
 
         CompanyMapper.INSTANCE.updateCompanyUserDTO(companyUserDto, companyOld);
@@ -94,7 +105,7 @@ public class CompanyServiceImp implements CompanyServiceAPI {
 
     @Override
     public void deleteCompany(long ownerId, long companyId) {
-        if(companyRepository.findByOwnerIdAndId(ownerId, companyId) == null)
+        if (companyRepository.findByOwnerIdAndId(ownerId, companyId) == null)
             throw new NotFoundException("No company with this ID found");
         companyRepository.deleteById(companyId);
     }

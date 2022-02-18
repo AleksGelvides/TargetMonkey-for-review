@@ -27,6 +27,11 @@
 
         <dependency>
             <groupId>com.targetmonkey</groupId>
+            <artifactId>security-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.targetmonkey</groupId>
             <artifactId>authentication-service-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -76,12 +81,6 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.targetmonkey</groupId>
-            <artifactId>security-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

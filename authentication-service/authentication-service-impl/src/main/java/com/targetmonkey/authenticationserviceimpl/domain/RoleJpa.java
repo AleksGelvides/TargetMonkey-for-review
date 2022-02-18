@@ -20,8 +20,7 @@ public class RoleJpa {
     private long id;
 
     @Column(name = "name")
-    @Enumerated(EnumType.STRING)
-    private Role name;
+    private String name;
 
     @CreatedDate
     @Column(name = "created")
@@ -35,6 +34,6 @@ public class RoleJpa {
     @Column(name = "status")
     private Status status;
 
-    @ManyToMany(mappedBy = "roleJpas", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     List<CustomerJpa> roles;
 }

@@ -2,6 +2,7 @@ package com.targetmonkey.registrationserviceimpl.serviceapi;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
+import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface CompanyServiceAPI {
 
     CompanyAdminDto getByOwnerIdAndCompanyId(long customerId, long companyId);
 
-    CompanyAdminDto createCompany(CompanyAdminDto companyAdminDto);
+    CompanyAdminDto createCompany(CompanyAdminDto companyAdminDto) throws ObjectRepeatingException;
 
     CompanyAdminDto editCompany(long id, CompanyAdminDto companyAdminDto);
 
