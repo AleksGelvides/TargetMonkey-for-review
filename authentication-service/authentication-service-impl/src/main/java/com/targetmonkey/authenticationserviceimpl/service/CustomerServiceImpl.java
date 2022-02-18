@@ -43,9 +43,9 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @SneakyThrows
     public void registrationCustomer(CustomerRegistrationDto customerRegistrationDto) {
         var customerRole = roleRepository.findByName(String.valueOf(Role.ROLE_CUSTOMER));
-        List<RoleJpa> roleJpas = new ArrayList<>();
-        roleJpas.add(customerRole);
-        var customerJpa = new CustomerJpa(customerRegistrationDto, Status.ACTIVE, roleJpas);
+        List<RoleJpa> roles = new ArrayList<>();
+        roles.add(customerRole);
+        var customerJpa = new CustomerJpa(customerRegistrationDto, Status.ACTIVE, roles);
         customerJpa.setPassword(passwordEncoder.encode(customerJpa.getPassword()));
         if (customerRepository.findByUsername(customerRegistrationDto.getUserName()) != null) {
             throw new CustomerWasRegisteredException("This user was registered");
@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var customerJpa = customerRepository.findByUsername(username);
-        List<SimpleGrantedAuthority> authorities = customerJpa.getRoleJpas().stream()
+        List<SimpleGrantedAuthority> authorities = customerJpa.getRoles().stream()
                 .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName().toString()))
                 .toList();
         return new User(customerJpa.getUsername(), customerJpa.getPassword(), authorities);

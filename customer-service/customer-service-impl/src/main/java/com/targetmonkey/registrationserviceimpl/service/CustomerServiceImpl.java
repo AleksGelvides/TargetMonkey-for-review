@@ -2,9 +2,12 @@ package com.targetmonkey.registrationserviceimpl.service;
 
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.customers.CustomerDto;
+import com.targetmonkey.registrationserviceimpl.domain.CustomerJpa;
+import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 import com.targetmonkey.registrationserviceimpl.mappers.CustomersMapper;
 import com.targetmonkey.registrationserviceimpl.repository.CustomerRepository;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,19 +50,23 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
     }
 
     @Override
+    @SneakyThrows
     public CustomerAdminDto editCustomer(String username, CustomerDto newCustomer) {
         var jpa = customerRepository.findByUsername(username);
         CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
         jpa.setUpdated(new Date());
+        validationEditingCustomers(jpa);
         var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
 
     @Override
+    @SneakyThrows
     public CustomerAdminDto editCustomer(String username, CustomerAdminDto newCustomer) {
         var jpa = customerRepository.findByUsername(username);
         CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
         jpa.setUpdated(new Date());
+        validationEditingCustomers(jpa);
         var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
@@ -72,5 +79,10 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
         }catch (Exception e){
             throw new NotFoundException("Customer not found");
         }
+    }
+
+    private void validationEditingCustomers(CustomerJpa jpa) throws ObjectRepeatingException{
+        if(customerRepository.findByEmail(jpa.getEmail()) != null)
+            throw new ObjectRepeatingException("This email was already used");
     }
 }

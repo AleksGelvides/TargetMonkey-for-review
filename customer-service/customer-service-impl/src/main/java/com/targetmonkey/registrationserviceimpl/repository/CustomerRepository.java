@@ -8,4 +8,6 @@ public interface CustomerRepository extends JpaRepository<CustomerJpa, Long> {
     CustomerJpa findByUsername(String username);
 
     void deleteByUsername(String username);
+
+    CustomerJpa findByEmail(String email);
 }

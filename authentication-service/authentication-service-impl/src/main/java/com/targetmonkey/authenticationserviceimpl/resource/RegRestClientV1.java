@@ -29,7 +29,8 @@ public class RegRestClientV1 implements RegistrationRestClientV1 {
             service.registrationCustomer(customerRegistrationDto);
         }catch (Exception e){
             log.error(e.getMessage());
-            return new ResponseEntity("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity(new CustomerAuthDto(customerRegistrationDto.getUserName(), "You password"),
                 HttpStatus.OK);
