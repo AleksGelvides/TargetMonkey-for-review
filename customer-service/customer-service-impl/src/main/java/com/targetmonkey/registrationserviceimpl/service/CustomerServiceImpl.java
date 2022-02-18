@@ -42,11 +42,12 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
 
     @Override
     public CustomerAdminDto getByUserName(String username) {
-        var customerAdminDto = CustomersMapper.INSTANCE.toCustomerAdminDto(
-                customerRepository.findByUsername(username));
-        if(customerAdminDto == null)
+        try {
+            return CustomersMapper.INSTANCE.toCustomerAdminDto(
+                    customerRepository.findByUsername(username));
+        }catch (Exception e){
             throw new NotFoundException("User not found");
-        return customerAdminDto;
+        }
     }
 
     @Override
@@ -62,8 +63,9 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
 
     @Override
     @SneakyThrows
-    public CustomerAdminDto editCustomer(String username, CustomerAdminDto newCustomer) {
-        var jpa = customerRepository.findByUsername(username);
+    public CustomerAdminDto editCustomer(long id, CustomerAdminDto newCustomer) {
+        var jpa = customerRepository.findById(id).orElseThrow(()
+                -> new NotFoundException("Customer with this id not found"));
         CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
         jpa.setUpdated(new Date());
         validationEditingCustomers(jpa);
@@ -72,10 +74,10 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
     }
 
     @Override
-    public void deleteCustomer(String username) throws NotFoundException{
+    public void deleteCustomer(long id) throws NotFoundException{
         try {
-            customerRepository.deleteByUsername(username);
-            log.info("IN deleteCustomer FOR ADMIN: пользователь удален с id: {}", username);
+            customerRepository.deleteById(id);
+            log.info("IN deleteCustomer FOR ADMIN: пользователь удален с id: {}", id);
         }catch (Exception e){
             throw new NotFoundException("Customer not found");
         }

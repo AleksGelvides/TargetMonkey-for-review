@@ -16,8 +16,9 @@ public interface CustomerAdminRestControllerV1 {
     @GetMapping("customer/{id}")
     ResponseEntity<?> getCustomerBuId(@PathVariable long id);
 
-    @PutMapping("update")
-    ResponseEntity<?> update(@RequestBody CustomerAdminDto customerAdminDto);
+    @PutMapping("update/{id}")
+    ResponseEntity<?> update(@PathVariable long id,
+                             @RequestBody CustomerAdminDto customerAdminDto);
 
     @DeleteMapping("delete/{id}")
     ResponseEntity<?> deleteCustomer(@PathVariable long id);

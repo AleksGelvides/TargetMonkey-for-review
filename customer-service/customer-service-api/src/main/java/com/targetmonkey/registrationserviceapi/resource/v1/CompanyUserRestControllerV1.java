@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/users/companies/v1/")
+@RequestMapping("/api/user/companies/v1/")
 public interface CompanyUserRestControllerV1 {
+
 
     @GetMapping("company/{companyId}")
     ResponseEntity<?> getCompanyById(HttpServletRequest request,
