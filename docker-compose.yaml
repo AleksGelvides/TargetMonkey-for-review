@@ -6,19 +6,7 @@ services:
     image: 'postgres:14'
     container_name: 'postgres-dev'
     volumes:
-      - ./postgres:/var/lib/postgres/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - 5432:5432
-
-  postgres-test:
-    image: 'postgres:14'
-    container_name: 'postgres-test'
-    volumes:
-      - ./postgres:/var/lib/postgres/data
+      - ./postgres_dev:/var/lib/postgres/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -26,17 +14,29 @@ services:
     ports:
       - 5433:5432
 
-  postgres-stage:
+  postgres-test:
     image: 'postgres:14'
-    container_name: 'postgres-stage'
+    container_name: 'postgres-test'
     volumes:
-      - ./postgres:/var/lib/postgres/data
+      - ./postgres-test:/var/lib/postgres/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
       - 5434:5432
+
+  postgres-stage:
+    image: 'postgres:14'
+    container_name: 'postgres-stage'
+    volumes:
+      - ./postgres-stage:/var/lib/postgres/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5435:5432
 
   eureka-service:
     image: eureka-server
