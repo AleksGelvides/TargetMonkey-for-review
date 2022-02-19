@@ -55,10 +55,13 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
+    @SneakyThrows
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var customerJpa = customerRepository.findByUsername(username);
+        if(customerJpa == null)
+            throw new UsernameNotFoundException("User not found");
         List<SimpleGrantedAuthority> authorities = customerJpa.getRoles().stream()
-                .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName().toString()))
+                .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName()))
                 .toList();
         return new User(customerJpa.getUsername(), customerJpa.getPassword(), authorities);
     }
