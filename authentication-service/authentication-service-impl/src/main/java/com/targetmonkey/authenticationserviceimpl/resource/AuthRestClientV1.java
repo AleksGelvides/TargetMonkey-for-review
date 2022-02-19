@@ -37,18 +37,18 @@ public class AuthRestClientV1 implements AuthenticationRestClientV1 {
 
     @Override
     public ResponseEntity<?> login(CustomerAuthDto dto) {
-        Map<String, String> response = new HashMap<>();
         try{
             authenticationManagerBean.authenticate(
                     new UsernamePasswordAuthenticationToken(dto.username(), dto.password()));
             String jwt = provider.createToken(customerService.loadUserByUsername(dto.username()));
+            Map<String, String> response = new HashMap<>();
             response.put("username", dto.username());
             response.put("jwt", jwt);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception e){
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
