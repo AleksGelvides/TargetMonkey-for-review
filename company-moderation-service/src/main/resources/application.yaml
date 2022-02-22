@@ -1,0 +1,20 @@
+request:
+  fns:
+    api-request: https://api-fns.ru/api/egr
+    api-key: 0f3dd3fb45f00c50b4ca804a56d4b54f39a75107
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: company-moderation-service
+  main:
+    web-application-type: none
