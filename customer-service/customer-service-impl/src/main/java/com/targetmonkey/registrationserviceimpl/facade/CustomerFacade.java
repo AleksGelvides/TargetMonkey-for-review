@@ -45,7 +45,8 @@ public class CustomerFacade {
         companyAdminDto.setOwnerId(customerService.getByUserName(username).getId())
                 .setCreated(new Date())
                 .setUpdated(new Date())
-                .setStatus(Status.FROZEN);
+                .setStatus(Status.FROZEN)
+                .setModerationComment("On moderation");
             result = companyServiceImp.createCompany(companyAdminDto);
             return CompanyMapper.INSTANCE.toCompanyUserDto(result);
 

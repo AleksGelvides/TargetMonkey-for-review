@@ -25,6 +25,8 @@ public interface CompanyMapper {
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "updated", ignore = true)
     @Mapping(target = "leadsCounts", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "moderationComment", ignore = true)
     void updateCompanyAdminDTO(CompanyAdminDto newCompany, @MappingTarget CompanyAdminDto oldCompany); //Обновление: Админ/Админ
 
     @Mapping(target = "id", ignore = true)
@@ -32,6 +34,8 @@ public interface CompanyMapper {
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "updated", ignore = true)
     @Mapping(target = "leadsCounts", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "moderationComment", ignore = true)
     void updateCompanyUserDTO(CompanyUserDto newCompany, @MappingTarget CompanyAdminDto oldCompany);   //Обновление: Кастомер/Админ
 
 

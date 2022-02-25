@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.targetmonkey.companymoderationservice.domain.Company;
 import com.targetmonkey.companymoderationservice.exceptions.CompanyValidationExceptions;
 import com.targetmonkey.companymoderationservice.feign.FeignCompanyClient;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyApproveService {
     @Autowired
-    FeignCompanyClient companyClient;
+    private FeignCompanyClient companyClient;
 
-    public boolean isApproved(Company company) throws CompanyValidationExceptions {
+    public void isApproved(Company company) throws CompanyValidationExceptions {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(companyClient.getCompanyByInn(company.getInn()));
+
+            JsonNode jsonNode = mapper.readTree(companyClient.getCompanyByInn(company.getCompanyGId()));
 
             ArrayNode arrayNodeResponse = (ArrayNode) jsonNode.get("items");
             log.info(arrayNodeResponse.toString());
@@ -31,15 +33,15 @@ public class CompanyApproveService {
 
             String companyNameFNC = ul.get("НаимСокрЮЛ").asText();
 
-            if(!companyNameFNC.contains(company.getCompanyName().toUpperCase())){
+            if (!companyNameFNC.contains(company.getCompanyName().toUpperCase())) {
                 throw new CompanyValidationExceptions("The company name does not match");
             }
-
-            return true;
-
-        }catch (IllegalStateException | NullPointerException | JsonProcessingException e){
+        } catch (IllegalStateException | NullPointerException | JsonProcessingException e) {
             log.error(e.getMessage());
             throw new CompanyValidationExceptions("The company does not exist");
+        } catch (FeignException ex){
+            log.error(ex.getMessage());
+            throw new CompanyValidationExceptions("Unknown error. Contact your administrator");
         }
     }
 }

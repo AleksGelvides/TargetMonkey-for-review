@@ -26,6 +26,9 @@ public class CompanyJpa {
     @Column(name = "company_name")
     private String companyName;
 
+    @Column(name = "company_gid")
+    private String companyGId;
+
     @Column(name = "category")
     private String category;
 
@@ -44,5 +47,8 @@ public class CompanyJpa {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
+
+    @Column(name = "moderation_сomment")
+    private String moderationComment;
 
 }

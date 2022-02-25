@@ -27,6 +27,12 @@ databaseChangeLog:
                     nullable: false
                     unique: true
               - column:
+                  name: company_gid
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
                   name: category
                   type: varchar(32)
                   constraints:
@@ -56,3 +62,6 @@ databaseChangeLog:
                   type: varchar(24)
                   constraints:
                     nullable: false
+              - column:
+                  name: moderation_сomment
+                  type: varchar

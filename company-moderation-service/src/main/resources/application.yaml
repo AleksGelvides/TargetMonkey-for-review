@@ -1,7 +1,7 @@
 request:
   fns:
     api-request: https://api-fns.ru/api/egr
-    api-key: 0f3dd3fb45f00c50b4ca804a56d4b54f39a75107
+    api-key: bd165f03affe92c87de099fbe9ee28de67f6ca61
 
 eureka:
   client:
@@ -18,3 +18,12 @@ spring:
     name: company-moderation-service
   main:
     web-application-type: none
+  kafka:
+    bootstrapAddress: localhost:29092
+    consumer:
+      groupId: consumerModerationGroup
+      topicName: companyForReview
+    producer:
+      topicName: resultModeration
+
+

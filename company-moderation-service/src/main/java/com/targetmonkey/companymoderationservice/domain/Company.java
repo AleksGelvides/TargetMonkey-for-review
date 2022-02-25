@@ -7,9 +7,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Company {
     private long id;
-    private long ownerId;
     private String companyName;
-    private String Inn;
-    private String category;
-    private String description;
+    private String companyGId;
+    private String moderationComment;
 }
