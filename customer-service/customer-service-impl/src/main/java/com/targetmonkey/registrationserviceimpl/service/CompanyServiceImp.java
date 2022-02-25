@@ -2,6 +2,7 @@ package com.targetmonkey.registrationserviceimpl.service;
 
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyAdminDto;
 import com.targetmonkey.registrationserviceapi.dto.companies.CompanyUserDto;
+import com.targetmonkey.registrationserviceimpl.domain.CompanyJpa;
 import com.targetmonkey.registrationserviceimpl.exceptions.ObjectRepeatingException;
 import com.targetmonkey.registrationserviceimpl.mappers.CompanyMapper;
 import com.targetmonkey.registrationserviceimpl.repository.CompanyRepository;
@@ -18,8 +19,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class CompanyServiceImp implements CompanyServiceAPI {
+    private final static Object lock = new Object();
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
+    @Autowired
+    private KafkaService kafkaService;
 
     @Override
     public List<CompanyAdminDto> getAllCompany() {
@@ -58,12 +62,13 @@ public class CompanyServiceImp implements CompanyServiceAPI {
     @Override
     @SneakyThrows
     public CompanyAdminDto createCompany(CompanyAdminDto companyAdminDtoDto) {
-        CompanyAdminDto result;
+        CompanyAdminDto company;
         if(companyRepository.findByCompanyName(companyAdminDtoDto.getCompanyName()) != null)
             throw new ObjectRepeatingException("This company was registered");
         var resultJpa = companyRepository.save(CompanyMapper.INSTANCE.toCompanyJpa(companyAdminDtoDto));
-        result = CompanyMapper.INSTANCE.toCompanyAdminDto(resultJpa);
-        return result;
+        company = CompanyMapper.INSTANCE.toCompanyAdminDto(resultJpa);
+        kafkaService.sendCompanyForReview(company);
+        return company;
     }
 
     @Override

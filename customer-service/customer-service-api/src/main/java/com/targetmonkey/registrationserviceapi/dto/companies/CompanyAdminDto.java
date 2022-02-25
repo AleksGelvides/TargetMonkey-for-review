@@ -12,10 +12,12 @@ public class CompanyAdminDto {
     private long id;
     private long ownerId;
     private String companyName;
+    private String companyGId;
     private String category;
     private String description;
     private Date created;
     private Date updated;
     private long leadsCounts;
     private Status status;
+    private String moderationComment;
 }

@@ -33,6 +33,7 @@
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <security-common.version>0.0.1-SNAPSHOT</security-common.version>
         <lombok.mapstruct.binding.verion>0.1.0</lombok.mapstruct.binding.verion>
+        <spring.kafka.version>2.8.2</spring.kafka.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
@@ -45,6 +46,14 @@
                 <artifactId>security-common</artifactId>
                 <version>${security-common.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring.kafka.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.mapstruct</groupId>

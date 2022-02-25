@@ -8,6 +8,16 @@ spring:
     hibernate:
       ddl-auto: validate
 
+  kafka:
+    server:
+      bootstrapAddress: localhost:29092
+    cunsumer:
+      groupId: consumerGroup
+      topicName: resultModeration
+    producer:
+      topicName: companyForReview
+
+
   application:
     name: customer-service
 
