@@ -1,4 +1,4 @@
-package com.targetmonkey.authenticationserviceimpl.serviceapi;
+package com.targetmonkey.authenticationserviceimpl.service;
 
 import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerWasRegisteredException;
 import dto.CustomerRegistrationDto;

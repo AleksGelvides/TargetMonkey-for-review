@@ -1,7 +1,7 @@
 request:
   fns:
-    api-request: https://api-fns.ru/api/egr
-    api-key: bd165f03affe92c87de099fbe9ee28de67f6ca61
+    api-request: https://api-fns.ru/api/multinfo
+    api-key: 0f3dd3fb45f00c50b4ca804a56d4b54f39a75107
 
 eureka:
   client:
@@ -25,5 +25,6 @@ spring:
       topicName: companyForReview
     producer:
       topicName: resultModeration
+
 
 

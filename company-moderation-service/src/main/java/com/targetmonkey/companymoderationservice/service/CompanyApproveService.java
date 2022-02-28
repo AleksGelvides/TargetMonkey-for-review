@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Slf4j
 @Service
 public class CompanyApproveService {
@@ -33,7 +36,7 @@ public class CompanyApproveService {
 
             String companyNameFNC = ul.get("НаимСокрЮЛ").asText();
 
-            if (!companyNameFNC.contains(company.getCompanyName().toUpperCase())) {
+            if (!regexFind(companyNameFNC, company.getCompanyName())) {
                 throw new CompanyValidationExceptions("The company name does not match");
             }
         } catch (IllegalStateException | NullPointerException | JsonProcessingException e) {
@@ -43,5 +46,11 @@ public class CompanyApproveService {
             log.error(ex.getMessage());
             throw new CompanyValidationExceptions("Unknown error. Contact your administrator");
         }
+    }
+
+    private boolean regexFind(String fullCompanyName, String companyName){
+        Pattern pattern = Pattern.compile(companyName.toUpperCase());
+        Matcher matcher = pattern.matcher(fullCompanyName);
+        return matcher.find();
     }
 }

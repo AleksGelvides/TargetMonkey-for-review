@@ -1,7 +1,5 @@
 package com.targetmonkey.companymoderationservice;
 
-import com.targetmonkey.companymoderationservice.domain.Company;
-import com.targetmonkey.companymoderationservice.feign.FeignCompanyClient;
 import com.targetmonkey.companymoderationservice.service.CompanyApproveService;
 import com.targetmonkey.companymoderationservice.service.KafkaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +26,6 @@ public class CompanyModerationServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
     }
 }

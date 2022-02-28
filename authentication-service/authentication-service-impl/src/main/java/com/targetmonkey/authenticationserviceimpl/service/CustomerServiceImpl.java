@@ -5,7 +5,6 @@ import com.targetmonkey.authenticationserviceimpl.domain.RoleJpa;
 import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerWasRegisteredException;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.authenticationserviceimpl.repository.RoleRepository;
-import com.targetmonkey.authenticationserviceimpl.serviceapi.CustomerService;
 import com.targetmonkey.securitycommon.security.domain.Role;
 import com.targetmonkey.securitycommon.security.domain.Status;
 import dto.CustomerRegistrationDto;
@@ -58,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var customerJpa = customerRepository.findByUsername(username);
         List<SimpleGrantedAuthority> authorities = customerJpa.getRoles().stream()
-                .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName().toString()))
+                .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName()))
                 .toList();
         return new User(customerJpa.getUsername(), customerJpa.getPassword(), authorities);
     }
