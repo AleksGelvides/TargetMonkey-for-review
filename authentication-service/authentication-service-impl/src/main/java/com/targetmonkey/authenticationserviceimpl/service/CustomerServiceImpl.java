@@ -5,7 +5,6 @@ import com.targetmonkey.authenticationserviceimpl.domain.RoleJpa;
 import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerWasRegisteredException;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.authenticationserviceimpl.repository.RoleRepository;
-import com.targetmonkey.authenticationserviceimpl.serviceapi.CustomerService;
 import com.targetmonkey.securitycommon.security.domain.Role;
 import com.targetmonkey.securitycommon.security.domain.Status;
 import dto.CustomerRegistrationDto;
