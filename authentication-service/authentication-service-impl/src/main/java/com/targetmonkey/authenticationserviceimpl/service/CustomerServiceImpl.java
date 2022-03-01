@@ -54,7 +54,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
-    @SneakyThrows
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             var customerJpa = customerRepository.findByUsername(username);
