@@ -24,6 +24,7 @@ public class CustomerServiceIntegratedTest {
     CustomerServiceImpl customerService;
     @Autowired
     CustomerRepository customerRepository;
+
     private CustomerRegistrationDto customer;
 
 
