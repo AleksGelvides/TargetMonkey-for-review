@@ -60,7 +60,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
             List<SimpleGrantedAuthority> authorities = customerJpa.getRoles().stream()
                     .map(roleJpa -> new SimpleGrantedAuthority(roleJpa.getName()))
                     .toList();
-
             return new User(customerJpa.getUsername(), customerJpa.getPassword(), authorities);
         }catch (NullPointerException e){
             throw new UsernameNotFoundException("This user not found");
