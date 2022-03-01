@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -24,45 +25,62 @@ public class CustomerServiceIntegratedTest {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Test
-    public void testSaveUserInDataBase(){
-        log.info("Start: testSaveUserInDataBase");
-        var customerRegistration = new CustomerRegistrationDto()
+    private CustomerRegistrationDto customer;
+
+
+    @BeforeEach
+    public void init(){
+        this.customer = new CustomerRegistrationDto()
                 .setName("Test")
                 .setSurname("Test")
                 .setEmail("Test")
                 .setUserName("Test")
                 .setPassword("Test");
-        customerService.registrationCustomer(customerRegistration);
-        var customerFromDb = customerRepository.findById(1L).orElse(null);
-        assertNotNull(customerFromDb);
-        assertEquals(customerFromDb.getName(), customerRegistration.getName());
-        assertEquals(customerFromDb.getSurname(), customerRegistration.getSurname());
-        assertEquals(customerFromDb.getEmail(), customerRegistration.getEmail());
-        assertEquals(customerFromDb.getUsername(), customerRegistration.getUserName());
-        assertEquals(customerFromDb.getStatus(), Status.ACTIVE);
-        assertNotEquals(customerFromDb.getPassword(), customerRegistration.getPassword());
     }
-
-    @Test()
-    public void testReturnExceptionAtDoubleUser(){
-        var customerRegistration = new CustomerRegistrationDto()
-                .setName("Test")
-                .setSurname("Test")
-                .setEmail("Test")
-                .setUserName("Test")
-                .setPassword("Test");
-        customerService.registrationCustomer(customerRegistration);
-        assertThrows(CustomerWasRegisteredException.class, () -> {
-            customerService.registrationCustomer(customerRegistration);
-        });
-    }
-
 
     @BeforeEach
     public void voidClearDb(){
         customerRepository.deleteAll();
         log.info("db was cleared");
+    }
+
+    @Test
+    public void testSaveUserInDataBase(){
+        log.info("Start: testSaveUserInDataBase");
+
+        customerService.registrationCustomer(customer);
+        var customerFromDb = customerRepository.findByUsername(customer.getName());
+        assertNotNull(customerFromDb);
+        assertEquals(customerFromDb.getName(), customer.getName());
+        assertEquals(customerFromDb.getSurname(), customer.getSurname());
+        assertEquals(customerFromDb.getEmail(), customer.getEmail());
+        assertEquals(customerFromDb.getUsername(), customer.getUserName());
+        assertEquals(customerFromDb.getStatus(), Status.ACTIVE);
+        assertNotEquals(customerFromDb.getPassword(), customer.getPassword());
+    }
+
+    @Test()
+    public void testReturnExceptionAtDoubleUser(){
+        var newDoubleCustomer = customer;
+        customerService.registrationCustomer(customer);
+        assertThrows(CustomerWasRegisteredException.class, () -> {
+            customerService.registrationCustomer(newDoubleCustomer);
+        });
+    }
+
+    @Test
+    public void testLoadUserByUserNameWasReturnedUser(){
+        customerService.registrationCustomer(customer);
+        var user = customerService.loadUserByUsername(customer.getName());
+        System.out.println(user);
+        assertNotNull(user);
+    }
+
+    @Test
+    public void testLoadByUserNameWasReturnedUsernameNotFoundException(){
+        assertThrows(UsernameNotFoundException.class, () -> {
+            customerService.loadUserByUsername(customer.getName());
+        });
     }
 
 }
