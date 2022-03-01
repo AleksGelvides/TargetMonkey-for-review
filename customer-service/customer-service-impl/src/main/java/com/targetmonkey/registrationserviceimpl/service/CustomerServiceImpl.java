@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
         try {
             return CustomersMapper.INSTANCE.toCustomerAdminDto(
                     customerRepository.findByUsername(username));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new NotFoundException("User not found");
         }
     }
@@ -56,7 +56,8 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
         var jpa = customerRepository.findByUsername(username);
         CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
         jpa.setUpdated(new Date());
-        validationEditingCustomers(jpa);
+        if (!jpa.getEmail().equals(newCustomer.getEmail()))
+            validationEditingCustomers(jpa);
         var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
@@ -68,23 +69,24 @@ public class CustomerServiceImpl implements CustomerServiceAPI {
                 -> new NotFoundException("Customer with this id not found"));
         CustomersMapper.INSTANCE.updateCustomerJpa(newCustomer, jpa);
         jpa.setUpdated(new Date());
-        validationEditingCustomers(jpa);
+        if (!jpa.getEmail().equals(newCustomer.getEmail()))
+            validationEditingCustomers(jpa);
         var updatedCustomer = customerRepository.save(jpa);
         return CustomersMapper.INSTANCE.toCustomerAdminDto(updatedCustomer);
     }
 
     @Override
-    public void deleteCustomer(long id) throws NotFoundException{
+    public void deleteCustomer(long id) throws NotFoundException {
         try {
             customerRepository.deleteById(id);
             log.info("IN deleteCustomer FOR ADMIN: пользователь удален с id: {}", id);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new NotFoundException("Customer not found");
         }
     }
 
-    private void validationEditingCustomers(CustomerJpa jpa) throws ObjectRepeatingException{
-        if(customerRepository.findByEmail(jpa.getEmail()) != null)
+    private void validationEditingCustomers(CustomerJpa jpa) throws ObjectRepeatingException {
+        if (customerRepository.findByEmail(jpa.getEmail()) != null)
             throw new ObjectRepeatingException("This email was already used");
     }
 }
