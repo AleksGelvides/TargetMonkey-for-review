@@ -17,7 +17,4 @@ public interface AuthenticationRestClientV1 {
     @PostMapping("login")
     ResponseEntity<?> login(@RequestBody CustomerAuthDto dto);
 
-    @PostMapping("logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response);
-
 }

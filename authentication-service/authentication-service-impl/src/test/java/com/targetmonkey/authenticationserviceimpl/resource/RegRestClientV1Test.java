@@ -1,7 +1,6 @@
 package com.targetmonkey.authenticationserviceimpl.resource;
 
 import com.targetmonkey.authenticationserviceimpl.domain.CustomerJpa;
-import com.targetmonkey.authenticationserviceimpl.exceptions.CustomerWasRegisteredException;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.securitycommon.security.domain.Status;
 import dto.CustomerAuthDto;

@@ -5,6 +5,7 @@ import dto.CustomerRegistrationDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "customers")
 @NoArgsConstructor
