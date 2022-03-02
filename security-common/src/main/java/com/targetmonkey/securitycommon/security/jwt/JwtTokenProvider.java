@@ -66,7 +66,6 @@ public class JwtTokenProvider {
 
     public String getUserName(String token){
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
-        // Парсим имя пользователя из Claims(Параметров токена). Установили в createToken()
     }
 
     public Authentication getAuthentication(String token) {
@@ -86,5 +85,13 @@ public class JwtTokenProvider {
             log.error(e.getMessage());
             return false;
         }
+    }
+
+    public long getValidityInMilliseconds(){
+        return this.validityInMilliseconds;
+    }
+
+    public void setValidityTimeOnlyForTests(long ms){
+        this.validityInMilliseconds = ms;
     }
 }
