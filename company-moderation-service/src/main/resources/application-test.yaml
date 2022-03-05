@@ -1,0 +1,24 @@
+request:
+  fns:
+    api-request: https://api-fns.ru/api/multinfo
+    api-key: 0f3dd3fb45f00c50b4ca804a56d4b54f39a75107
+
+eureka:
+  client:
+    enabled: false
+
+server:
+  port: 8087
+
+spring:
+  application:
+    name: company-moderation-service
+  main:
+    web-application-type: none
+  kafka:
+    bootstrapAddress: localhost:29092
+    consumer:
+      groupId: consumerModerationGroup
+      topicName: companyForReview
+    producer:
+      topicName: resultModeration
