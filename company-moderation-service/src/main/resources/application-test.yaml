@@ -22,3 +22,5 @@ spring:
       topicName: companyForReview
     producer:
       topicName: resultModeration
+    streams:
+      auto-startup: false

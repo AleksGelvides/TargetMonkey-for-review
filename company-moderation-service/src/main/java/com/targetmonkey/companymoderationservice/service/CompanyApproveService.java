@@ -21,7 +21,7 @@ public class CompanyApproveService {
     @Autowired
     private FeignCompanyClient companyClient;
 
-    public void isApproved(Company company) throws CompanyValidationExceptions {
+    public boolean isApproved(Company company) throws CompanyValidationExceptions {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -39,6 +39,7 @@ public class CompanyApproveService {
             if (!regexFind(companyNameFNC, company.getCompanyName())) {
                 throw new CompanyValidationExceptions("The company name does not match");
             }
+            return true;
         } catch (IllegalStateException | NullPointerException | JsonProcessingException e) {
             log.error(e.getMessage());
             throw new CompanyValidationExceptions("The company does not exist");
