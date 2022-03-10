@@ -3,6 +3,7 @@ package com.targetmonkey.authenticationserviceimpl.resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.targetmonkey.authenticationserviceimpl.BaseClassTests;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.authenticationserviceimpl.service.CustomerServiceImpl;
 import dto.CustomerAuthDto;
@@ -20,10 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Slf4j
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Testcontainers
-public class AuthRestClientTest {
+public class AuthRestClientTest extends BaseClassTests {
 
     @Autowired
     TestRestTemplate restTemplate;
