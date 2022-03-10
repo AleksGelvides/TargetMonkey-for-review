@@ -38,9 +38,8 @@ public class KafkaService {
             if (company.getId() == 0) {
                 log.warn("No content");
             } else {
-                if(companyApproveService.isApproved(company)) {
+                if(companyApproveService.isApproved(company))
                     sendModerationResult(company.setModerationComment("Confirmed"));
-                }
             }
         } catch (Exception e) {
             sendModerationResult(company.setModerationComment(e.getMessage()));

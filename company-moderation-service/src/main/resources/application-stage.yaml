@@ -5,7 +5,10 @@ request:
 
 eureka:
   client:
-    enabled: false
+    service-url:
+      defaultZone: http://host.docker.internal:8761/eureka
+  instance:
+    preferIpAddress: true
 
 server:
   port: 8087
@@ -16,13 +19,12 @@ spring:
   main:
     web-application-type: none
   kafka:
-    enable: false
-    bootstrapAddress: localhost:29092
+    bootstrapAddress: kafka:9092
     consumer:
-      auto-offset-reset: earliest
       groupId: consumerModerationGroup
       topicName: companyForReview
     producer:
       topicName: resultModeration
-    streams:
-      auto-startup: false
+
+
+
