@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +41,7 @@ public class CompanyApproveService {
                 throw new CompanyValidationExceptions("The company name does not match");
             }
             return true;
-        } catch (IllegalStateException | NullPointerException | JsonProcessingException e) {
+        } catch (NoSuchElementException | IllegalStateException | NullPointerException | JsonProcessingException e) {
             log.error(e.getMessage());
             throw new CompanyValidationExceptions("The company does not exist");
         } catch (FeignException ex){

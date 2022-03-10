@@ -36,6 +36,7 @@
         <spring.kafka.version>2.8.2</spring.kafka.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencyManagement>

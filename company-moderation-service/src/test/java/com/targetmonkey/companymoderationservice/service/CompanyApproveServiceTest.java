@@ -8,11 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.shaded.org.bouncycastle.util.encoders.UTF8;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +28,7 @@ import static org.mockito.Mockito.when;
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("test")
+@EnableAutoConfiguration(exclude = KafkaAutoConfiguration.class)
 public class CompanyApproveServiceTest {
 
     @Mock
@@ -47,7 +54,7 @@ public class CompanyApproveServiceTest {
     @Test
     public void isApprovedTestMustReturnedCompanyNotExist() {
         var company = new Company()
-                .setCompanyName("***")
+                .setCompanyName("Сухой нос")
                 .setCompanyGId("Точно неправильный ИНН")
                 .setId(1L);
         when(feignCompanyClient.getCompanyByInn(any())).thenReturn("Компания не обнаружена");
@@ -100,12 +107,12 @@ public class CompanyApproveServiceTest {
     private String readJson(String path) {
         StringBuilder jsonToString = new StringBuilder();
         try {
-            FileReader reader = new FileReader(path);
+            FileReader reader = new FileReader(path, Charset.forName("UTF-8"));
             Scanner scanner = new Scanner(reader);
             while (scanner.hasNext()) {
                 jsonToString.append(scanner.nextLine());
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             log.error(e.getMessage());
         }
         return jsonToString.toString();

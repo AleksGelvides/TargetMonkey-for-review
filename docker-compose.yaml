@@ -14,18 +14,6 @@ services:
     ports:
       - 5433:5432
 
-  postgres-test:
-    image: 'postgres:14'
-    container_name: 'postgres-test'
-    volumes:
-      - ./postgres-test:/var/lib/postgres/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - 5434:5432
-
   postgres-stage:
     image: 'postgres:14'
     container_name: 'postgres-stage'
@@ -81,6 +69,8 @@ services:
       - SPRING_PROFILES_ACTIVE=stage
     ports:
       - 8082:8082
+    depends_on:
+      - eureka-service
 
   apigateway-service:
     image: apigateway-service
@@ -92,6 +82,8 @@ services:
       - 8089:8089
     environment:
       - SPRING_PROFILES_ACTIVE=stage
+    depends_on:
+      - eureka-service
 
   customer-service:
     image: customer-service
@@ -103,3 +95,20 @@ services:
       - 8081:8081
     environment:
       - SPRING_PROFILES_ACTIVE=stage
+    depends_on:
+      - eureka-service
+      - kafka
+
+  company-moderation-service:
+    image: company-moderation-service
+    container_name: company-moderation-service
+    build: ./company-moderation-service
+    volumes:
+      - ../src:/opt/app
+    ports:
+      - 8087:8087
+    environment:
+      - SPRING_PROFILES_ACTIVE=stage
+    depends_on:
+      - eureka-service
+      - kafka

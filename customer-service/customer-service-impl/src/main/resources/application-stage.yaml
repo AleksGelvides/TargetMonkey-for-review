@@ -15,6 +15,15 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
 
+  kafka:
+    server:
+      bootstrapAddress: kafka:9092
+    cunsumer:
+      groupId: consumerGroup
+      topicName: resultModeration
+    producer:
+      topicName: companyForReview
+
 server:
   port: 8081
 
