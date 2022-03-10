@@ -1,5 +1,6 @@
 package com.targetmonkey.authenticationserviceimpl.resource;
 
+import com.targetmonkey.authenticationserviceimpl.BaseClassTests;
 import com.targetmonkey.authenticationserviceimpl.domain.CustomerJpa;
 import com.targetmonkey.authenticationserviceimpl.repository.CustomerRepository;
 import com.targetmonkey.securitycommon.security.domain.Status;
@@ -21,10 +22,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Testcontainers
-public class RegRestClientV1Test {
+public class RegRestClientV1Test extends BaseClassTests {
 
     @Autowired
     TestRestTemplate restTemplate;

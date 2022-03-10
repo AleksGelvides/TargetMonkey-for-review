@@ -6,10 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(value = "test")
 @Testcontainers
-class AuthenticationServiceImplApplicationTests {
+public class BaseClassTests {
 
     @Test
     void contextLoads() {
